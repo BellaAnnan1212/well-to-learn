@@ -1,0 +1,81 @@
+[
+  {
+    "id": "p01",
+    "slug": "marigold",
+    "pseudonym": "marigold",
+    "display_name": "Marigold",
+    "age_band": "15-17",
+    "region": "Eastern Africa",
+    "country": null,
+    "show_country": false,
+    "schooling_status": "in school",
+    "key_points": [
+      "Walks a long way to school and often arrives too tired to concentrate.",
+      "Told a teacher she felt low; the teacher listened but had nobody to refer her to.",
+      "Found that talking with two friends after class helped more than anything else.",
+      "Wants a room at school where a student can sit quietly for ten minutes."
+    ],
+    "quotes": [
+      { "text": "Nobody at school is trained for this. They care, but they do not know what to do next.", "paraphrased": false },
+      { "text": "She asked for a quiet place to go, not a lecture.", "paraphrased": true }
+    ],
+    "wants_changed": "One trained adult per school whose job it is to listen, and a quiet room that is not the sick bay.",
+    "avatar": { "style": "open-peeps", "seed": "marigold", "file": "p01.svg" },
+    "content_note": null,
+    "consent": { "how": "verbal, recorded in the intake note", "date": "2026-08-30" },
+    "approved_by_bella": "2026-09-03",
+    "verified_identifying_details": "2026-09-03",
+    "verified_safe_messaging": "2026-09-03"
+  },
+  {
+    "id": "p02",
+    "slug": "juniper",
+    "pseudonym": "juniper",
+    "display_name": "Juniper",
+    "age_band": "18-19",
+    "region": "South-eastern Asia",
+    "country": "Philippines",
+    "show_country": true,
+    "schooling_status": "returned",
+    "key_points": [
+      "Left school for a year to work when a parent lost their job.",
+      "Came back through a bridging class run by a local group, not the school.",
+      "Says the hardest part of returning was the assumption that he had been lazy."
+    ],
+    "quotes": [
+      { "text": "I did not stop wanting to learn. I stopped being able to afford it.", "paraphrased": false }
+    ],
+    "wants_changed": "A way back into school that does not punish the year you were away.",
+    "avatar": { "style": "open-peeps", "seed": "juniper", "file": "p02.svg" },
+    "content_note": "This profile mentions family money trouble and leaving school.",
+    "consent": { "how": "written message, saved in the intake note", "date": "2026-08-31" },
+    "approved_by_bella": "2026-09-03",
+    "verified_identifying_details": "2026-09-03",
+    "verified_safe_messaging": "2026-09-03"
+  },
+  {
+    "id": "p03",
+    "slug": "sorrel",
+    "pseudonym": "sorrel",
+    "display_name": "Sorrel",
+    "age_band": "13-14",
+    "region": "Southern Europe",
+    "country": null,
+    "show_country": false,
+    "schooling_status": "interrupted",
+    "key_points": [
+      "Missed most of a term after a long illness in the family.",
+      "The school sent worksheets but nobody asked how she was.",
+      "A neighbour who is a retired teacher helped her catch up."
+    ],
+    "quotes": [
+      { "text": "The homework arrived every week. The questions never did.", "paraphrased": false }
+    ],
+    "wants_changed": "Someone from school to check in when a student disappears for more than a week.",
+    "avatar": { "style": "open-peeps", "seed": "sorrel", "file": "p03.svg" },
+    "content_note": null,
+    "consent": { "how": "verbal, recorded in the intake note", "date": "2026-09-01" },
+    "verified_identifying_details": "2026-09-03",
+    "verified_safe_messaging": "2026-09-03"
+  }
+]

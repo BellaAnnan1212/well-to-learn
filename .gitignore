@@ -1,0 +1,12 @@
+# Well to Learn: ignore list for the site repo.
+# The git directory for this working tree lives OUTSIDE iCloud
+# (git init --separate-git-dir); the .git file in this folder is only a
+# pointer to it. iCloud never syncs the git database.
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+# Download cache for the atlas pipeline: never committed. The .gitkeep marker
+# is re-included so the folder exists on a fresh clone.
+data/raw/*
+!data/raw/.gitkeep

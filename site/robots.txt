@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bellaannan1212.github.io/well-to-learn/sitemap.xml

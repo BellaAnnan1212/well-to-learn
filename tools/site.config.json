@@ -1,0 +1,33 @@
+{
+  "siteName": "Well to Learn",
+  "tagline": "Youth mental health, schools, and the right to learn",
+  "basePath": "/well-to-learn/",
+  "version": "20260904",
+  "home": { "label": "Well to Learn", "href": "index.html" },
+  "nav": [
+    { "label": "Atlas", "href": "atlas/" },
+    { "label": "Voices", "href": "voices/" },
+    { "label": "Your rights", "href": "rights/" },
+    { "label": "Take action", "href": "act/" },
+    { "label": "About", "href": "about/" },
+    { "label": "Methodology", "href": "methodology/" }
+  ],
+  "crisis": {
+    "heading": "If you need help now",
+    "us_988": "988 call or text (US)",
+    "us_text_line": "Crisis Text Line (text HOME to 741741, US)",
+    "international": "findahelpline.com (international)",
+    "international_url": "https://findahelpline.com/",
+    "danger": "if you are in danger now call local emergency services",
+    "not_crisis_service": "this site is not a crisis service",
+    "advice": "Information, not medical or legal advice"
+  },
+  "licence": {
+    "content": "Written content: CC BY-NC 4.0",
+    "content_url": "https://creativecommons.org/licenses/by-nc/4.0/",
+    "code": "Code: MIT",
+    "code_url": "https://opensource.org/license/mit",
+    "profiles": "Interview profiles: all rights reserved"
+  },
+  "correct_this": { "label": "Correct this", "href": "about/#correct" }
+}
