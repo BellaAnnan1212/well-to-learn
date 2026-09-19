@@ -21,9 +21,12 @@ import {
 import { loadPartials, stampHtml } from './stamp.mjs';
 
 export const BANNED_PHRASES = ['epidemic', 'crisis', 'diagnosed', 'skyrocketing', 'committed suicide'];
-export const AGE_BANDS = ['13-14', '15-17', '18-19'];
+export const AGE_BANDS = ['12-14', '15-17', '18-19'];
 export const MAX_QUOTE_WORDS = 40;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+// Consent is recorded to the month only. This repo is public, and fifteen exact
+// interview days read together are an itinerary; the exact day stays in the private intake.
+const MONTH_RE = /^\d{4}-\d{2}$/;
 const YEAR_RE = /\b(?:19|20)\d{2}\b/;
 const ID_RE = /^p\d{2}$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -85,7 +88,7 @@ export function validateProfile(p) {
   need('consent', p.consent && typeof p.consent === 'object', 'missing {how, date}');
   if (p.consent && typeof p.consent === 'object') {
     need('consent.how', isNonEmptyString(p.consent.how), 'missing');
-    need('consent.date', isNonEmptyString(p.consent.date) && DATE_RE.test(p.consent.date), 'missing or not YYYY-MM-DD');
+    need('consent.date', isNonEmptyString(p.consent.date) && MONTH_RE.test(p.consent.date), 'missing or not YYYY-MM (month only: never publish the exact day)');
   }
   for (const field of ['approved_by_bella', 'verified_identifying_details', 'verified_safe_messaging']) {
     need(field, isNonEmptyString(p[field]) && DATE_RE.test(p[field]), 'missing or not YYYY-MM-DD');

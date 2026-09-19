@@ -22,7 +22,7 @@
     "wants_changed": "One trained adult per school whose job it is to listen, and a quiet room that is not the sick bay.",
     "avatar": { "style": "open-peeps", "seed": "marigold", "file": "p01.svg" },
     "content_note": null,
-    "consent": { "how": "verbal, recorded in the intake note", "date": "2026-08-30" },
+    "consent": { "how": "verbal, recorded in the intake note", "date": "2026-08" },
     "approved_by_bella": "2026-09-03",
     "verified_identifying_details": "2026-09-03",
     "verified_safe_messaging": "2026-09-03"
@@ -48,7 +48,7 @@
     "wants_changed": "A way back into school that does not punish the year you were away.",
     "avatar": { "style": "open-peeps", "seed": "juniper", "file": "p02.svg" },
     "content_note": "This profile mentions family money trouble and leaving school.",
-    "consent": { "how": "written message, saved in the intake note", "date": "2026-08-31" },
+    "consent": { "how": "written message, saved in the intake note", "date": "2026-08" },
     "approved_by_bella": "2026-09-03",
     "verified_identifying_details": "2026-09-03",
     "verified_safe_messaging": "2026-09-03"
@@ -58,7 +58,7 @@
     "slug": "sorrel",
     "pseudonym": "sorrel",
     "display_name": "Sorrel",
-    "age_band": "13-14",
+    "age_band": "12-14",
     "region": "Southern Europe",
     "country": null,
     "show_country": false,
@@ -74,7 +74,7 @@
     "wants_changed": "Someone from school to check in when a student disappears for more than a week.",
     "avatar": { "style": "open-peeps", "seed": "sorrel", "file": "p03.svg" },
     "content_note": null,
-    "consent": { "how": "verbal, recorded in the intake note", "date": "2026-09-01" },
+    "consent": { "how": "verbal, recorded in the intake note", "date": "2026-09" },
     "verified_identifying_details": "2026-09-03",
     "verified_safe_messaging": "2026-09-03"
   }

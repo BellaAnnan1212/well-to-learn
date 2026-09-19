@@ -230,6 +230,8 @@ try {
   assert(r.code === 1 && r.out.includes('verified_identifying_details: missing'), 'refuses a missing verified_identifying_details');
   r = mutate((p) => { delete p.consent.date; });
   assert(r.code === 1 && r.out.includes('consent.date: missing'), 'refuses a missing consent.date');
+  r = mutate((p) => { p.consent.date = '2026-08-30'; });
+  assert(r.code === 1 && r.out.includes('consent.date: missing or not YYYY-MM'), 'refuses an exact consent day (month only)');
   r = mutate((p) => { p.quotes[0].text = 'He said <b>"no"</b> & left.'; });
   assert(r.code === 0, 'a quote with markup characters is accepted (and escaped below)');
 
@@ -253,7 +255,7 @@ try {
   assert(prof.includes('(verbatim)') && prof.includes('(paraphrased)'), 'quotes carry verbatim and paraphrased tags');
   assert(!prof.includes('content-note') && prof2.indexOf('content-note') < prof2.indexOf('glance-heading'), 'content note only when present, and before the story');
   assert(prof.includes('href="../../atlas/"') && prof.includes('href="../../voices/" aria-current="page"'), 'profile nav resolved at depth 2 and Voices is current');
-  assert(!prof.includes('2026-08-30') && !prof.includes('intake note'), 'profile page never prints consent date or how');
+  assert(!prof.includes('2026-08') && !prof.includes('intake note'), 'profile page never prints consent date or how');
   assert(prof.includes('<time datetime="2026-09-03">'), 'profile page prints the verification dates');
   assert(prof.includes(`site.css?v=${TODAY}`), 'profile page carries today\'s ?v= stamp');
   const roll = fs.readFileSync(path.join(site, 'voices', 'index.html'), 'utf8');
