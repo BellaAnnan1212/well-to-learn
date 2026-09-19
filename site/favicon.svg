@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Well to Learn">
+  <!-- The register, at 16 pixels: a ledger-green page, one entry, and the double rule that closes it.
+       Colours are the site's own tokens (--wtl-green, --wtl-card). No letters: a monogram is unreadable
+       at this size, and the double rule is the one mark this site uses everywhere. -->
+  <rect width="64" height="64" rx="6" fill="#1F5C46"/>
+  <circle cx="17" cy="23" r="5" fill="#FFFDF8"/>
+  <rect x="28" y="20.5" width="20" height="5" rx="1" fill="#FFFDF8" opacity=".55"/>
+  <rect x="12" y="40" width="40" height="3.5" fill="#FFFDF8"/>
+  <rect x="12" y="47.5" width="40" height="3.5" fill="#FFFDF8"/>
+</svg>

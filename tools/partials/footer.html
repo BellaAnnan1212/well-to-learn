@@ -1,12 +1,23 @@
-<footer class="site-footer">
-  <p class="site-footer-licence">
-    <a href="{{site.licence.content_url}}" rel="license noopener">{{site.licence.content}}</a> ·
-    <a href="{{site.licence.code_url}}" rel="noopener">{{site.licence.code}}</a> ·
-    {{site.licence.profiles}}
-  </p>
-  <p class="site-footer-links">
-    <a href="{{root}}methodology/">Methodology and sources</a> ·
-    <a href="{{root}}{{site.correct_this.href}}">{{site.correct_this.label}}</a>
-  </p>
-  <p class="src">{{site.siteName}} · version {{version}} · no cookies, no analytics, no third-party scripts</p>
+<footer class="band band-ink site-footer" id="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <div>
+        <p class="brand">{{site.siteName}}</p>
+        <p class="prose">{{site.tagline}}. How it was made, and who checked what: About and Methodology.</p>
+      </div>
+      <ul class="foot-links">
+        <li><a href="{{root}}about/">About</a></li>
+        <li><a href="{{root}}methodology/">Methodology and sources</a></li>
+        <li><a href="{{root}}act/">Take action</a></li>
+        <li><a href="{{site.correct_this.issues_url}}" rel="noopener">{{site.correct_this.label}}</a></li>
+      </ul>
+    </div>
+    <p class="legal">
+      <a href="{{site.licence.code_url}}" rel="noopener">{{site.licence.code}}</a> ·
+      <a href="{{site.licence.content_url}}" rel="license noopener">{{site.licence.content}}</a> ·
+      {{site.licence.profiles}}
+    </p>
+    <p class="legal">{{site.crisis.advice}} · {{site.crisis.not_crisis_service}} · help lines are on every page</p>
+    <p class="legal">{{site.siteName}} · version {{version}} · no cookies, no analytics, no third-party requests</p>
+  </div>
 </footer>

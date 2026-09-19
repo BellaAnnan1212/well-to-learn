@@ -2,15 +2,36 @@
   "siteName": "Well to Learn",
   "tagline": "Youth mental health, schools, and the right to learn",
   "basePath": "/well-to-learn/",
-  "version": "20260904",
-  "home": { "label": "Well to Learn", "href": "index.html" },
+  "version": "20260919",
+  "home": {
+    "label": "Well to Learn",
+    "href": "index.html"
+  },
   "nav": [
-    { "label": "Atlas", "href": "atlas/" },
-    { "label": "Voices", "href": "voices/" },
-    { "label": "Your rights", "href": "rights/" },
-    { "label": "Take action", "href": "act/" },
-    { "label": "About", "href": "about/" },
-    { "label": "Methodology", "href": "methodology/" }
+    {
+      "label": "Atlas",
+      "href": "atlas/"
+    },
+    {
+      "label": "Voices",
+      "href": "voices/"
+    },
+    {
+      "label": "Your rights",
+      "href": "rights/"
+    },
+    {
+      "label": "Take action",
+      "href": "act/"
+    },
+    {
+      "label": "About",
+      "href": "about/"
+    },
+    {
+      "label": "Methodology",
+      "href": "methodology/"
+    }
   ],
   "crisis": {
     "heading": "If you need help now",
@@ -29,5 +50,9 @@
     "code_url": "https://opensource.org/license/mit",
     "profiles": "Interview profiles: all rights reserved"
   },
-  "correct_this": { "label": "Correct this", "href": "about/#correct" }
+  "correct_this": {
+    "label": "Correct this",
+    "href": "about/#correct",
+    "issues_url": "https://github.com/BellaAnnan1212/well-to-learn/issues"
+  }
 }

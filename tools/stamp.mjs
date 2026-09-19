@@ -17,6 +17,12 @@ import {
 
 export const BLOCKS = ['nav', 'crisis', 'footer'];
 
+// Pages the server hands out for paths that do not exist. GitHub Pages answers
+// /well-to-learn/atlas/nothing/here/ with 404.html, so a relative URL on that page would be fetched
+// from .../nothing/here/assets/ and miss. These pages get the site's basePath as their {{root}}
+// instead of "../" per depth, and check.mjs allows site-absolute URLs on exactly these pages.
+export const ROOT_ABSOLUTE_PAGES = new Set(['404.html']);
+
 // Local asset URLs only: skip anything with a scheme, protocol-relative, mailto, tel, data.
 const VERSION_RE = /((?:href|src)=["'])(?!(?:[a-z][a-z0-9+.-]*:|\/\/))([^"'?#]*)\?v=\d{8}/gi;
 
@@ -35,8 +41,9 @@ function isCurrent(href, relPath) {
 
 // Build the render context for one page.
 export function contextFor(config, relPath, version) {
+  const absolute = ROOT_ABSOLUTE_PAGES.has(relPath) && typeof config.basePath === 'string';
   return {
-    root: rootFor(relPath),
+    root: absolute ? config.basePath : rootFor(relPath),
     page: relPath,
     version,
     site: config,

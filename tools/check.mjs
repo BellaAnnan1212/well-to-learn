@@ -2,7 +2,9 @@
 // check.mjs: the gate before any push. Exits 1 with a readable report when any page under site/ lacks a
 // viewport meta, exactly one h1, a skip link (whose target id exists), the three marker pairs, or a crisis
 // block; when any local href/src points at a missing file; when an href is site-absolute (breaks the
-// /well-to-learn/ sub-path); when ?v= stamps differ across files (or from tools/site.config.json); or when
+// /well-to-learn/ sub-path) on any page but the ones served for missing paths, where it is required
+// (ROOT_ABSOLUTE_PAGES, and there it must start with basePath and still resolve to a real file);
+// when ?v= stamps differ across files (or from tools/site.config.json); or when
 // sitemap.xml lists a URL with no matching page. Zero pages is itself a failure. Exit 0 prints counts.
 //
 //   node tools/check.mjs [--root <repo>] [--site <dir>]
@@ -11,6 +13,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { layout, parseArgs, readJson, walkHtml } from './lib/common.mjs';
+// One list, one place: the stamper writes these pages from the site root, and this gate is the only
+// page-set that may carry a site-absolute URL. Importing it keeps the two from drifting apart.
+import { ROOT_ABSOLUTE_PAGES } from './stamp.mjs';
 
 const BLOCKS = ['nav', 'crisis', 'footer'];
 const ATTR_RE = /\b(href|src)\s*=\s*("([^"]*)"|'([^']*)')/gi;
@@ -28,7 +33,7 @@ function between(html, name) {
   return html.slice(a, b);
 }
 
-export function checkPage(html, relPath, siteDir) {
+export function checkPage(html, relPath, siteDir, basePath = '/') {
   const errors = [];
   const stamps = [];
   let links = 0;
@@ -71,11 +76,24 @@ export function checkPage(html, relPath, siteDir) {
     }
     if (!urlPath) continue;
     links += 1;
+    let target;
     if (urlPath.startsWith('/')) {
-      errors.push(`${raw}: site-absolute URL breaks the /well-to-learn/ sub-path; use a relative URL`);
-      continue;
+      // A site-absolute URL breaks the sub-path for every ordinary page, so it stays refused there.
+      // The pages in ROOT_ABSOLUTE_PAGES are served for paths that do not exist (404.html), where a
+      // relative URL resolves against the missing directory and misses: those may write from the site
+      // root, must stay inside basePath, and are still resolved against a real file below.
+      if (!ROOT_ABSOLUTE_PAGES.has(relPath)) {
+        errors.push(`${raw}: site-absolute URL breaks the ${basePath} sub-path; use a relative URL`);
+        continue;
+      }
+      if (!urlPath.startsWith(basePath)) {
+        errors.push(`${raw}: site-absolute URL on ${relPath} must start with the basePath ${basePath}`);
+        continue;
+      }
+      target = path.posix.normalize(decodeURIComponent(urlPath.slice(basePath.length)) || '.');
+    } else {
+      target = path.posix.normalize(path.posix.join(pageDir, decodeURIComponent(urlPath)));
     }
-    const target = path.posix.normalize(path.posix.join(pageDir, decodeURIComponent(urlPath)));
     if (target.startsWith('..')) {
       errors.push(`${raw}: resolves outside site/`);
       continue;
@@ -149,7 +167,7 @@ export function main(argv = process.argv.slice(2)) {
   let links = 0;
   for (const relPath of pages) {
     const html = fs.readFileSync(path.join(L.site, relPath), 'utf8');
-    const r = checkPage(html, relPath, L.site);
+    const r = checkPage(html, relPath, L.site, basePath);
     links += r.links;
     if (r.stamps.length) stampsByFile.set(relPath, [...new Set(r.stamps)]);
     if (r.errors.length) report.push({ file: relPath, errors: r.errors });

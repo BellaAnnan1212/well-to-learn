@@ -124,7 +124,7 @@ try {
   assert(home.includes('if you are in danger now call local emergency services'), 'crisis danger line present verbatim');
   assert(home.includes('this site is not a crisis service'), 'crisis not-a-crisis-service line present verbatim');
   assert(home.includes('Information, not medical or legal advice'), 'crisis advice line present verbatim, as its own paragraph');
-  assert(home.includes('class="site-footer"') && home.includes('CC BY-NC 4.0'), 'footer stamped with the licence line');
+  assert(home.includes('class="band band-ink site-footer"') && home.includes('CC BY-NC 4.0'), 'footer stamped with the licence line');
   assert(!/\{\{[^}]*\}\}/.test(home) && !/\{\{[^}]*\}\}/.test(atlas), 'no unresolved {{placeholders}} remain');
   const cfg = JSON.parse(fs.readFileSync(path.join(A, 'tools', 'site.config.json'), 'utf8'));
   assert(cfg.version === TODAY, 'config version stamp updated to today');
@@ -239,7 +239,11 @@ try {
   write(profilesPath, JSON.stringify(valid, null, 2));
   for (const p of valid) write(path.join(site, 'assets', 'avatars', `${p.id}.svg`), '<svg xmlns="http://www.w3.org/2000/svg"/>\n');
   write(path.join(site, 'assets', 'tokens.css'), ':root{}\n');
+  // A generated page carries the same head as a hand-written one: tokens, stylesheet, script, icons.
+  write(path.join(site, 'assets', 'site.js'), '/* stub */\n');
   write(path.join(site, 'favicon.svg'), '<svg xmlns="http://www.w3.org/2000/svg"/>\n');
+  write(path.join(site, 'favicon.ico'), 'stub\n');
+  write(path.join(site, 'apple-touch-icon.png'), 'stub\n');
   r = run('build-voices.mjs', ['--root', A]);
   assert(r.code === 0, `build-voices exits 0 on two valid profiles (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
   const snapV1 = snapshot(site);
@@ -283,6 +287,42 @@ try {
   r = run('check.mjs', ['--root', A]);
   assert(r.code === 0, `check exits 0 on the site with generated voices (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
   assert(sameSnapshot(snapS, snapshot(site)), 'check never writes');
+
+  // ---------- 404.html: the one page written from the site root ----------
+  // GitHub Pages serves it for any missing path, so relative URLs on it resolve against a directory
+  // that does not exist. The exemption is one named file and one prefix: everything else still refuses.
+  console.log('\n404.html: root-absolute, and nothing else is');
+  const notFound = page('Not found', 0)
+    .replace('href="assets/site.css?v=20200101"', 'href="/well-to-learn/assets/site.css?v=20200101"');
+  write(path.join(site, '404.html'), notFound);
+  r = run('stamp.mjs', ['--root', A]);
+  assert(r.code === 0, `stamp exits 0 with 404.html present (got ${r.code})`);
+  const nf = fs.readFileSync(path.join(site, '404.html'), 'utf8');
+  assert(nf.includes('href="/well-to-learn/atlas/"') && nf.includes('href="/well-to-learn/about/"'), '404.html nav and footer are stamped from the site root');
+  assert(nf.includes('href="/well-to-learn/index.html"'), '404.html home link is written from the site root');
+  assert(nf.includes(`/well-to-learn/assets/site.css?v=${TODAY}`), '404.html root-absolute asset still gets its ?v= bumped');
+  const homeRel = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
+  assert(homeRel.includes('href="atlas/"') && !homeRel.includes('href="/well-to-learn/atlas/"'), 'every other page still gets relative nav links');
+  r = run('stamp.mjs', ['--root', A]);
+  assert(r.code === 0 && /0 changed/.test(r.out), 'stamp is idempotent with 404.html present');
+  r = run('check.mjs', ['--root', A]);
+  assert(r.code === 0, `check accepts basePath URLs on 404.html (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
+
+  write(path.join(site, 'stray', 'index.html'), page('Stray', 1).replace('<p>Hello.</p>', '<p><a href="/well-to-learn/atlas/">absolute</a></p>'));
+  run('stamp.mjs', ['--root', A]);
+  r = run('check.mjs', ['--root', A]);
+  assert(r.code === 1 && r.out.includes('site-absolute'), 'a site-absolute URL on any page other than 404.html is still refused');
+  fs.rmSync(path.join(site, 'stray'), { recursive: true });
+
+  fs.writeFileSync(path.join(site, '404.html'), nf.replace('/well-to-learn/assets/site.css', '/assets/site.css'));
+  r = run('check.mjs', ['--root', A]);
+  assert(r.code === 1 && r.out.includes('must start with the basePath'), '404.html refuses a site-absolute URL outside the basePath');
+  fs.writeFileSync(path.join(site, '404.html'), nf.replace('/well-to-learn/assets/site.css', '/well-to-learn/assets/gone.css'));
+  r = run('check.mjs', ['--root', A]);
+  assert(r.code === 1 && r.out.includes('target not found'), '404.html root-absolute URLs are still resolved against a real file');
+  fs.writeFileSync(path.join(site, '404.html'), nf);
+  r = run('check.mjs', ['--root', A]);
+  assert(r.code === 0, `check is clean again once 404.html is restored (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
 }

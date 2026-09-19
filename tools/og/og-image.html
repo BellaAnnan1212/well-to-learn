@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Well to Learn · Open Graph card source</title>
+<!-- Source for site/og-image.png (1200 by 630). Re-render it with:
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+       --window-size=1200,630 --default-background-color=00000000 --hide-scrollbars \
+       --screenshot="site/og-image.png" "file:///ABSOLUTE/PATH/tools/og/og-image.html"
+     The fonts are the site's own self-hosted woff2 files, read straight off disk: no network. -->
+<style>
+@font-face{font-family:"IBM Plex Serif";src:url("../../site/assets/fonts/IBMPlexSerif-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal}
+@font-face{font-family:"IBM Plex Mono";src:url("../../site/assets/fonts/IBMPlexMono-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal}
+:root{--card:#FFFDF8;--green:#1F5C46;--soft:#CFDBD2}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{background:var(--green);color:var(--card);display:flex;flex-direction:column;justify-content:space-between;padding:72px 80px;font-family:"IBM Plex Serif",Georgia,serif}
+.top{display:flex;align-items:center;gap:20px}
+.mark{width:52px;height:52px;display:block}
+.word{font-size:34px;font-weight:600;letter-spacing:.01em}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:20px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-top:18px}
+.rule{border-top:4px solid var(--card);margin-top:16px}
+h1{font-size:88px;line-height:1.08;font-weight:600;max-width:20ch}
+.total{border-top:4px solid var(--card);border-bottom:4px solid var(--card);height:10px;width:280px}
+.foot{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:20px;color:var(--soft);letter-spacing:.04em}
+.bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+</style>
+</head>
+<body>
+  <div>
+    <div class="top">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="6" fill="#FFFDF8"/>
+        <circle cx="17" cy="23" r="5" fill="#1F5C46"/>
+        <rect x="28" y="20.5" width="20" height="5" rx="1" fill="#1F5C46" opacity=".55"/>
+        <rect x="12" y="40" width="40" height="3.5" fill="#1F5C46"/>
+        <rect x="12" y="47.5" width="40" height="3.5" fill="#1F5C46"/>
+      </svg>
+      <span class="word">Well to Learn</span>
+    </div>
+    <p class="eyebrow">A register of promises, numbers and voices</p>
+    <div class="rule"></div>
+  </div>
+  <h1>You cannot learn if you are not well.</h1>
+  <div class="bottom">
+    <div class="total"></div>
+    <p class="foot">bellaannan1212.github.io/well-to-learn</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,366 @@
+/* Well to Learn · site.css · direction C2 "Register, banded and in motion"
+   Every colour, size, space and motion value comes from assets/tokens.css. Nothing here invents one.
+   Load order on every page: tokens.css, then this file.
+   Sections: fonts · base · header · bands · ledger rows and stamps · doors · legend and map ·
+   country card · roll call · help band · footer · prose for long reads · motion · reduced motion · print */
+
+/* ---------- fonts: self-hosted, three families, five faces. No third-party request, ever ---------- */
+/* Files, versions, source URLs and sha256: assets/fonts/LICENSE-IBM-Plex.md (SIL Open Font License 1.1) */
+@font-face{font-family:"IBM Plex Serif";src:url("fonts/IBMPlexSerif-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("fonts/IBMPlexSans-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Sans";src:url("fonts/IBMPlexSans-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+/* ---------- base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+/* role slots: a band sets these, components read them. They are not tokens; every value is one */
+html{--bg:var(--wtl-card);--fg:var(--wtl-ink);--soft:var(--wtl-muted);--accent:var(--wtl-green);--label:var(--wtl-green);--line:var(--wtl-green);--hair:var(--wtl-rule);--stamp:var(--wtl-red);--ring:var(--wtl-focus);--hover:var(--wtl-ramp-1);
+  background:var(--wtl-card);color:var(--wtl-ink);font-family:var(--wtl-font-body);font-size:100%;line-height:var(--wtl-lead-body);-webkit-text-size-adjust:100%}
+body{margin:0;font-size:var(--wtl-size-2);background:var(--wtl-card)}
+h1,h2,h3,h4{font-family:var(--wtl-font-display);font-weight:600;margin:0;overflow-wrap:break-word}
+h1{font-size:var(--wtl-size-5);line-height:var(--wtl-lead-display);max-width:22ch}
+h2{font-size:var(--wtl-size-4);line-height:var(--wtl-lead-head)}
+h3{font-size:var(--wtl-size-3);line-height:var(--wtl-lead-head)}
+p,ul,ol,dl{margin:0}
+a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.15em}
+a:hover{text-decoration-thickness:2px}
+a,button,.door{transition:background-color .12s ease,text-decoration-thickness .12s ease}
+:focus-visible{outline:var(--ring);outline-offset:var(--wtl-focus-offset);border-radius:2px}
+img,svg{max-width:100%}
+.mono{font-family:var(--wtl-font-mono);font-variant-numeric:tabular-nums}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:var(--wtl-wrap);margin-inline:auto;padding-inline:var(--wtl-space-5)}
+.tlink{display:inline-flex;align-items:center;min-height:var(--wtl-target)}
+.eyebrow{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label)}
+/* no smooth scrolling anywhere: "Need help now?" jumps straight to the help band */
+
+/* skip link: the first thing a keyboard reader meets */
+.skip-link{position:absolute;left:var(--wtl-space-4);top:var(--wtl-space-4);z-index:20;background:var(--wtl-ink);color:var(--wtl-card);padding:var(--wtl-space-3) var(--wtl-space-4);font-weight:600;text-decoration:none;border-radius:var(--wtl-radius);transform:translateY(-300%)}
+.skip-link:focus{transform:none}
+
+/* ---------- header (card; a green band below is its edge, so it carries no rule) ---------- */
+.site-head{background:var(--wtl-card)}
+.head-row{display:flex;align-items:center;flex-wrap:wrap;gap:var(--wtl-space-2) var(--wtl-space-4);padding-block:var(--wtl-space-3)}
+.brand{font-family:var(--wtl-font-display);font-weight:600;font-size:var(--wtl-size-3);color:var(--fg);text-decoration:none;margin-right:auto;line-height:var(--wtl-lead-head);display:inline-flex;align-items:center;min-height:var(--wtl-target)}
+.brand:hover{text-decoration:underline;text-decoration-thickness:2px;text-decoration-color:var(--accent)}
+.nav ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:var(--wtl-space-1)}
+.nav a{display:inline-flex;align-items:center;min-height:var(--wtl-target);padding:0 var(--wtl-space-3);color:var(--fg);text-decoration:none;font-weight:600;border-radius:var(--wtl-radius)}
+.nav a:hover{text-decoration:underline;text-decoration-thickness:2px;text-decoration-color:var(--accent)}
+.nav a[aria-current="page"]{text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:var(--accent);text-underline-offset:.3em}
+.help-now{display:inline-flex;align-items:center;min-height:var(--wtl-target);padding:0 var(--wtl-space-4);background:var(--wtl-kraft);color:var(--wtl-ink);font-weight:600;text-decoration:none;border-radius:var(--wtl-radius-pill)}
+.help-now:hover{text-decoration:underline;text-decoration-thickness:2px}
+/* the menu button exists in the markup on every page and only ever shows when scripting is on */
+.nav-toggle{display:none;align-items:center;min-height:var(--wtl-target);min-width:var(--wtl-target);padding:0 var(--wtl-space-4);font:inherit;font-weight:600;color:var(--fg);background:transparent;border:2px solid var(--fg);border-radius:var(--wtl-radius);cursor:pointer}
+@media (max-width:52rem){
+  .brand{order:1}
+  .has-js .nav-toggle{display:inline-flex;order:2}
+  .help-now{order:3;flex-basis:100%;justify-content:center}
+  .nav{order:4;flex-basis:100%}
+  .has-js .nav:not(.open){display:none} /* without JavaScript the six links simply show */
+  .nav ul{flex-direction:column;gap:0;padding-block:var(--wtl-space-2)}
+  .nav a{display:flex;padding:0 var(--wtl-space-2);border-top:var(--wtl-rule-row)}
+}
+
+/* ---------- bands: every section is a page of the register on its own ground ---------- */
+.band{background:var(--bg);color:var(--fg);padding-block:var(--wtl-space-7)}
+.band-card{--bg:var(--wtl-card)}
+.band-wash{--bg:var(--wtl-band-wash);--hover:var(--wtl-card)}
+.band-kraft{--bg:var(--wtl-kraft);--soft:var(--wtl-ink)} /* muted on kraft is 4.12, so everything in the help band is ink */
+.band-green,.band-ink{--fg:var(--wtl-on-dark);--soft:var(--wtl-soft-on-dark);--accent:var(--wtl-on-dark);--label:var(--wtl-soft-on-dark);--line:var(--wtl-on-dark);--hair:var(--wtl-rule-on-dark);--stamp:var(--wtl-on-dark);--ring:var(--wtl-focus-on-dark)}
+.band-green{--bg:var(--wtl-green)}
+.band-ink{--bg:var(--wtl-ink)}
+@media (max-width:52rem){.band{padding-block:var(--wtl-space-6)}}
+
+/* hero (green band): the page opens as a register opens, rule first */
+.hero{padding-block:var(--wtl-space-8) var(--wtl-space-7)}
+.hero .eyebrow{margin-bottom:var(--wtl-space-6)}
+/* the hero's head rule is its own box, so the load can draw it */
+.hero .eyebrow::after{content:"";display:block;margin-top:var(--wtl-space-4);border-top:var(--wtl-rule-head);border-top-color:var(--line);transform-origin:0 50%}
+.hero h1{margin-bottom:var(--wtl-space-5)}
+.hero h1 span{display:block}
+.lede{font-size:var(--wtl-size-3);line-height:var(--wtl-lead-lede);max-width:var(--wtl-measure)}
+@media (max-width:52rem){.hero{padding-block:var(--wtl-space-7) var(--wtl-space-6)}}
+
+/* page title (green band): what every page but the home page opens with */
+.page-title{padding-block:var(--wtl-space-7)}
+.page-title .eyebrow{margin-bottom:var(--wtl-space-4)}
+.page-title .eyebrow::after{content:"";display:block;margin-top:var(--wtl-space-3);border-top:var(--wtl-rule-head);border-top-color:var(--line)}
+.page-title h1{margin-bottom:var(--wtl-space-4)}
+.page-title .lede{max-width:var(--wtl-measure)}
+@media (max-width:52rem){.page-title{padding-block:var(--wtl-space-6)}}
+
+/* ---------- ledger rows and stamps ---------- */
+.ledger-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--wtl-space-2) var(--wtl-space-6);margin-bottom:var(--wtl-space-4)}
+.ledger-note{color:var(--soft);max-width:var(--wtl-measure)}
+.rows{list-style:none;padding:0;border-bottom:var(--wtl-rule-total);border-bottom-color:var(--line)}
+.row{position:relative;display:grid;grid-template-columns:9.5rem minmax(0,1fr) 9rem;grid-template-areas:"stamp line num" "stamp src num";column-gap:var(--wtl-space-5);row-gap:var(--wtl-space-2);padding-block:var(--wtl-space-5);align-items:start;--wait:var(--wtl-wait-press)}
+/* the rule above a row is its own box, so it can be drawn: 2px opens the register, 1px separates */
+.row::before{content:"";position:absolute;left:0;right:0;top:0;border-top:var(--wtl-rule-row);border-top-color:var(--hair);transform-origin:0 50%;transition:transform var(--wtl-dur-rule) var(--wtl-ease-out) calc(var(--k,0)*var(--wtl-step-row))}
+.row:first-child::before{border-top:var(--wtl-rule-head);border-top-color:var(--line)}
+.row:nth-child(2){--k:1}.row:nth-child(3){--k:2}.row:nth-child(4){--k:3}.row:nth-child(5){--k:4}
+.idx{grid-area:idx;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);text-align:right;padding-top:var(--wtl-space-1);font-variant-numeric:tabular-nums}
+.stamp{grid-area:stamp;justify-self:start;display:inline-block;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);font-weight:600;letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--stamp);border:var(--wtl-stamp-border) solid currentColor;border-radius:var(--wtl-radius-stamp);padding:.125rem var(--wtl-space-2);line-height:var(--wtl-lead-label);transform:rotate(var(--wtl-stamp-tilt));white-space:nowrap;
+  transition:opacity var(--wtl-dur-press) linear,transform var(--wtl-dur-press) var(--wtl-ease-press);transition-delay:calc(var(--k,0)*var(--wtl-step-row) + var(--wait,0ms))}
+.line{grid-area:line;max-width:var(--wtl-measure)}
+.src{grid-area:src;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);line-height:var(--wtl-lead-note);overflow-wrap:anywhere;max-width:var(--wtl-measure-mono)}
+.src a,.legend-foot a,.legal a,.note a,.voice-foot a{padding-block:var(--wtl-space-1)} /* 15px mono at 1.6 is a 24px pitch; the padding makes each link 24px or more. .note and .voice-foot are the same 15px mono, so they take the same floor */
+.num{grid-area:num;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-4);font-weight:600;line-height:var(--wtl-lead-amount);text-align:right;font-variant-numeric:tabular-nums}
+.num small,.count small{display:block;font-size:var(--wtl-size-1);font-weight:400;color:var(--soft);line-height:var(--wtl-lead-body)}
+.sample-tag{display:inline-block;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);border:1px dashed var(--soft);border-radius:var(--wtl-radius-stamp);padding:.125rem var(--wtl-space-2);line-height:var(--wtl-lead-label)}
+@media (max-width:52rem){
+  /* the sentence leads; the amount closes the row like a total */
+  .row{grid-template-columns:minmax(0,1fr);grid-template-areas:"stamp" "line" "num" "src";row-gap:var(--wtl-space-3)}
+  .num{text-align:left;font-size:var(--wtl-size-3)}
+  .num small{display:inline;margin-inline:0 var(--wtl-space-2)}
+  .num small:last-child{margin-inline:var(--wtl-space-2) 0}
+}
+
+/* honest state: what a band says while its content is still being made. Never a placeholder number */
+.state{border-top:var(--wtl-rule-head);border-bottom:var(--wtl-rule-total);border-top-color:var(--line);border-bottom-color:var(--line);padding-block:var(--wtl-space-5);display:grid;gap:var(--wtl-space-3);justify-items:start}
+.state h3{max-width:var(--wtl-measure)}
+.state p{max-width:var(--wtl-measure)}
+.state .src{grid-area:auto}
+.state-mark{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);font-weight:600;letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);line-height:var(--wtl-lead-label)}
+
+/* ---------- doors (wash band) ---------- */
+.door{grid-template-columns:6rem minmax(0,1fr) 3rem;grid-template-areas:"count title arrow" "count desc arrow"}
+.count{grid-area:count;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-3);font-weight:600;text-align:right;line-height:var(--wtl-lead-head);font-variant-numeric:tabular-nums}
+.door h3{grid-area:title}
+.door h3 a{color:var(--fg);text-decoration:none}
+.door h3 a::after{content:"";position:absolute;inset:0}
+.desc{grid-area:desc;max-width:var(--wtl-measure)}
+.arrow{grid-area:arrow;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-3);color:var(--accent);text-align:right;line-height:var(--wtl-lead-label);transition:transform var(--wtl-dur-nudge) var(--wtl-ease-out)}
+.door:hover,.door:focus-within{background:var(--hover)}
+.door:hover .arrow,.door:focus-within .arrow{transform:translateX(var(--wtl-nudge))}
+.door:hover h3 a{text-decoration:underline;text-decoration-thickness:2px;text-decoration-color:var(--accent)}
+/* a help door that sits away from the help band (Take action) wears the kraft rule instead of a count */
+.door-help{border-top:var(--wtl-rule-help);grid-template-columns:minmax(0,1fr) 3rem;grid-template-areas:"title arrow" "desc arrow"}
+.door-help::before{content:none}
+@media (max-width:52rem){
+  /* the count becomes a mono meta line under the title, so the description keeps the full column */
+  .door{grid-template-columns:minmax(0,1fr) 2rem;grid-template-areas:"title arrow" "count arrow" "desc desc";column-gap:var(--wtl-space-4);row-gap:var(--wtl-space-1)}
+  .count{text-align:left;font-size:var(--wtl-size-2);line-height:var(--wtl-lead-body)}
+  .count small{display:inline;margin-inline:var(--wtl-space-2) 0}
+  .desc{margin-top:var(--wtl-space-2)}
+  .door-help{grid-template-columns:minmax(0,1fr) 2rem;grid-template-areas:"title arrow" "desc desc"}
+}
+
+/* ---------- legend and map (card band) ---------- */
+.atlas{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(18rem,1fr);gap:var(--wtl-space-6);align-items:start;margin-top:var(--wtl-space-5)}
+.layer-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--wtl-space-2) var(--wtl-space-4);margin-bottom:var(--wtl-space-3)}
+.layer-head .src{flex-basis:100%;max-width:none}
+.map-fig{margin:0}
+.map{width:100%;height:auto;display:block;border:1px solid var(--wtl-rule);border-radius:var(--wtl-radius)}
+.map .bg{fill:var(--wtl-card)}
+.map polygon,.map path{vector-effect:non-scaling-stroke;stroke-linejoin:round} /* strokes stay in CSS px at every viewport */
+.map .ghost polygon,.map .ghost path{fill:var(--wtl-card);stroke:var(--wtl-muted);stroke-width:var(--wtl-map-line)}
+.map .land{stroke-width:var(--wtl-map-line)}
+.map .b1,.map .b2,.map .nodata{stroke:var(--wtl-muted)}.map .b3{stroke:var(--wtl-ink)}.map .b4,.map .b5{stroke:var(--wtl-card)} /* every outline 3:1 or more against its own fill */
+.map .b1{fill:var(--wtl-ramp-1)}.map .b2{fill:var(--wtl-ramp-2)}.map .b3{fill:var(--wtl-ramp-3)}.map .b4{fill:var(--wtl-ramp-4)}.map .b5{fill:var(--wtl-ramp-5)}
+.map .nodata{fill:url(#hatch)}
+.map .hatch-bg{fill:var(--wtl-card)}.map .hatch-line{fill:var(--wtl-muted)}
+.map .halo{stroke:var(--wtl-card);stroke-width:var(--wtl-map-halo)} /* 2.25px of halo either side of the red */
+.map .sel{fill:none;stroke:var(--wtl-red);stroke-width:var(--wtl-map-sel)}
+.b1{--b:0}.b2{--b:1}.b3{--b:2}.b4{--b:3}.b5{--b:4}
+.map .f{transition:opacity var(--wtl-dur-fill) linear calc((var(--b) + 5)*var(--wtl-step-band))}
+.map-cap{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-top:var(--wtl-space-2);max-width:var(--wtl-measure-mono)}
+.legend{width:100%;border-collapse:collapse;margin-top:var(--wtl-space-4);font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);font-variant-numeric:tabular-nums}
+.legend caption{text-align:left;font-family:var(--wtl-font-body);font-size:var(--wtl-size-2);font-weight:600;padding-bottom:var(--wtl-space-2)}
+.legend th{text-align:left;font-family:var(--wtl-font-body);font-weight:600;padding:var(--wtl-space-2);border-bottom:var(--wtl-rule-head)}
+.legend td{padding:var(--wtl-space-2);vertical-align:middle}
+.legend th.range,.legend td.range{text-align:right}
+.legend .b1 td{border-bottom:1px solid var(--wtl-muted)}
+.legend .b2 td{border-bottom:2px solid var(--wtl-muted)}
+.legend .b3 td{border-bottom:3px solid var(--wtl-muted)}
+.legend .b4 td{border-bottom:4px solid var(--wtl-muted)}
+.legend .b5 td{border-bottom:5px solid var(--wtl-muted)}
+.legend .nd td{border-bottom:var(--wtl-rule-total)}
+.sw{position:relative;overflow:hidden;display:inline-block;width:2.5rem;height:1.25rem;border:1px solid var(--wtl-muted);vertical-align:middle;border-radius:2px}
+.sw::before{content:"";position:absolute;inset:0;background:var(--f);transition:opacity var(--wtl-dur-fill) linear calc(var(--b,0)*var(--wtl-step-band))}
+.sw-1{--f:var(--wtl-ramp-1)}.sw-2{--f:var(--wtl-ramp-2)}.sw-3{--f:var(--wtl-ramp-3)}.sw-4{--f:var(--wtl-ramp-4)}.sw-5{--f:var(--wtl-ramp-5)}
+.sw-nodata{--f:var(--wtl-nodata)}
+.legend-foot{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-top:var(--wtl-space-2);max-width:var(--wtl-measure-mono)}
+.fact{display:grid;justify-items:start;gap:var(--wtl-space-2);margin-top:var(--wtl-space-5)}
+.fact .stamp,.fact .src{grid-area:auto} /* the ledger classes carry named areas; this block has none */
+.layer-note{max-width:var(--wtl-measure)}
+@media (max-width:52rem){.atlas{grid-template-columns:1fr}}
+
+/* ---------- country card ---------- */
+.ccard{border-top:var(--wtl-rule-head);padding-block:var(--wtl-space-5);background:var(--wtl-card)}
+.ccard-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--wtl-space-2) var(--wtl-space-4);align-items:flex-start}
+.ccard .meta{margin-top:var(--wtl-space-1)}
+.ccard h4{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);margin:var(--wtl-space-5) 0 var(--wtl-space-1)}
+.kv{list-style:none;padding:0}
+.kv li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--wtl-space-4);padding:var(--wtl-space-2) 0;align-items:baseline}
+.kv li+li{border-top:var(--wtl-rule-row)}
+.kv .v{font-family:var(--wtl-font-mono);font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.kv .m{grid-column:1 / -1;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft)}
+.ccard-foot{margin-top:var(--wtl-space-5);padding-top:var(--wtl-space-3);border-top:var(--wtl-rule-total);display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--wtl-space-2) var(--wtl-space-4);align-items:center}
+.ccard-foot .src{max-width:none}
+kbd{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);border:1px solid var(--accent);border-radius:var(--wtl-radius-stamp);padding:0 var(--wtl-space-1)}
+
+/* plain data table: the same numbers as the map, for anyone who would rather read them */
+.table{width:100%;border-collapse:collapse;margin-top:var(--wtl-space-4);font-size:var(--wtl-size-2)}
+.table caption{text-align:left;font-weight:600;padding-bottom:var(--wtl-space-2);max-width:var(--wtl-measure)}
+.table th{text-align:left;font-weight:600;padding:var(--wtl-space-2) var(--wtl-space-3);border-bottom:var(--wtl-rule-head);border-bottom-color:var(--line);vertical-align:bottom}
+.table td{padding:var(--wtl-space-2) var(--wtl-space-3);border-bottom:var(--wtl-rule-row);border-bottom-color:var(--hair);vertical-align:baseline}
+.table tbody tr:last-child td{border-bottom:var(--wtl-rule-total);border-bottom-color:var(--line)}
+.table th.n,.table td.n{text-align:right;font-family:var(--wtl-font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.table td.n{font-weight:600}
+.table td.nd{font-family:var(--wtl-font-mono);color:var(--soft)} /* no data is a word, never a zero */
+.table .year{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft)}
+@media (max-width:52rem){.table{font-size:var(--wtl-size-1)}.table th,.table td{padding:var(--wtl-space-2)}}
+
+/* ---------- roll call (green band) ---------- */
+.roll{grid-template-columns:2.5rem 3.5rem minmax(0,1fr) auto;grid-template-areas:"idx avatar who here" "idx avatar meta here" "idx body body body"}
+.roll-closed{grid-template-areas:"idx avatar who here" "idx avatar meta here";padding-block:var(--wtl-space-4)}
+.avatar{grid-area:avatar;width:3rem;height:3rem;display:block}
+.av-bg{fill:var(--wtl-ramp-1)}
+.av-line{fill:none;stroke:var(--wtl-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.av-face{fill:var(--wtl-card)}
+.who{grid-area:who;position:relative}
+.who a{color:var(--fg)}
+.who h3 a::after{content:"";position:absolute;inset:min(0px,(100% - var(--wtl-target))/2) 0} /* the name renders 29px; its hit area is a 44px strip across the name column */
+.meta{grid-area:meta;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);overflow-wrap:anywhere}
+.here{grid-area:here;justify-self:end;align-self:start;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-4);font-weight:600;color:var(--accent);border-bottom:2px solid var(--line);line-height:var(--wtl-lead-label);padding-bottom:.125rem;
+  transition:opacity var(--wtl-dur-here) linear,transform var(--wtl-dur-here) var(--wtl-ease-out)}
+/* "Here." set once, large, with nobody attached: the roll call before anyone has been listed */
+.here-alone{display:inline-block;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-5);font-weight:600;color:var(--accent);border-bottom:3px solid var(--line);line-height:var(--wtl-lead-display);padding-bottom:var(--wtl-space-2);margin-top:var(--wtl-space-6)}
+.voice-body{grid-area:body;margin-top:var(--wtl-space-3)}
+.quote{font-family:var(--wtl-font-display);font-size:var(--wtl-size-3);line-height:var(--wtl-lead-lede);margin:var(--wtl-space-4) 0 0;max-width:var(--wtl-measure)}
+.quote-meta{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-top:var(--wtl-space-2)}
+.verbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--wtl-space-5);margin-top:var(--wtl-space-5)}
+.verbs dt{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);margin-bottom:var(--wtl-space-1)}
+.verbs dd{margin:0;max-width:var(--wtl-measure)}
+.voice-foot{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-top:var(--wtl-space-5);max-width:var(--wtl-measure-mono)}
+.voice-help{margin-top:var(--wtl-space-2)}
+.roll-close{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--wtl-space-2) var(--wtl-space-6);margin-top:var(--wtl-space-3)}
+.roll-close p{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);max-width:var(--wtl-measure-mono)}
+/* one profile page: the green roll-call row is its masthead, the story below sits on card */
+.voice-header{padding-block:var(--wtl-space-6)}
+.voice-kicker{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-bottom:var(--wtl-space-3)}
+.voice-kicker a{color:var(--accent)}
+.voice-row{display:grid;grid-template-columns:3.5rem 4.5rem minmax(0,1fr) auto;grid-template-areas:"idx avatar who here" "idx avatar meta here";column-gap:var(--wtl-space-5);row-gap:var(--wtl-space-2);align-items:start;border-top:var(--wtl-rule-head);border-top-color:var(--line);border-bottom:var(--wtl-rule-total);border-bottom-color:var(--line);padding-block:var(--wtl-space-5)}
+.voice-row .avatar{width:4rem;height:4rem}
+.voice-name{grid-area:who;font-size:var(--wtl-size-4);max-width:none}
+.voice-facts{margin-top:var(--wtl-space-5);display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--wtl-space-4);row-gap:var(--wtl-space-2);max-width:var(--wtl-measure)}
+.voice-facts dt{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);line-height:var(--wtl-lead-label);padding-top:.15rem}
+.voice-facts dd{margin:0}
+.voice-dates{margin-top:var(--wtl-space-4);display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--wtl-space-4);row-gap:var(--wtl-space-1);font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);max-width:var(--wtl-measure-mono)}
+.voice-dates dt{font-weight:600}
+.voice-dates dd{margin:0;font-variant-numeric:tabular-nums}
+.content-note{border-top:var(--wtl-rule-help);background:var(--wtl-kraft);color:var(--wtl-ink);padding:var(--wtl-space-5);border-radius:var(--wtl-radius);margin-bottom:var(--wtl-space-6);max-width:var(--wtl-measure-mono)}
+.content-note h2{font-size:var(--wtl-size-3);margin-bottom:var(--wtl-space-2)}
+.voices-roll{list-style:none;padding:0}
+@media (max-width:52rem){
+  /* "Here." keeps its right-hand column, so the answers still read as a roll */
+  .roll{grid-template-columns:1.75rem 3rem minmax(0,1fr) auto;column-gap:var(--wtl-space-3);grid-template-areas:"idx avatar who here" "idx avatar meta meta" "body body body body"}
+  .roll-closed{grid-template-areas:"idx avatar who here" "idx avatar meta meta"}
+  .here{font-size:var(--wtl-size-3)}
+  .here-alone{font-size:var(--wtl-size-4)}
+  .verbs{grid-template-columns:1fr}
+  .voice-row{grid-template-columns:2rem 3rem minmax(0,1fr) auto;column-gap:var(--wtl-space-3)}
+  .voice-row .avatar{width:3rem;height:3rem}
+  .voice-name{font-size:var(--wtl-size-3)}
+  .voice-facts{grid-template-columns:1fr;row-gap:var(--wtl-space-1)}
+  .voice-facts dd{margin-bottom:var(--wtl-space-2)}
+}
+
+/* ---------- help band (kraft): help first, then the second door ---------- */
+.help-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--wtl-space-7);align-items:start}
+.crisis h2{margin-bottom:var(--wtl-space-4)}
+.crisis-lede{max-width:var(--wtl-measure);margin-bottom:var(--wtl-space-4)}
+.lines{list-style:none;padding:0;display:grid;gap:var(--wtl-space-2);margin-bottom:var(--wtl-space-4)}
+.lines li{display:grid;grid-template-columns:23rem minmax(0,1fr);gap:var(--wtl-space-2) var(--wtl-space-4);align-items:baseline}
+.how{font-family:var(--wtl-font-mono);font-weight:600;font-variant-numeric:tabular-nums}
+.how a{display:inline-flex;align-items:center;min-height:var(--wtl-target)}
+.crisis p{max-width:var(--wtl-measure)}
+/* the three fine lines are stored lowercase in tools/site.config.json, word for word as the plan pinned
+   them; the capital is drawn, never typed, so the stored wording and the printed wording stay identical */
+.crisis-danger,.crisis-disclaimer{font-weight:600;margin-top:var(--wtl-space-2)}
+.crisis-danger::first-letter,.crisis-disclaimer::first-letter{text-transform:uppercase}
+.crisis-disclaimer{font-weight:400}
+.crisis-advice{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);margin-top:var(--wtl-space-3)}
+.path-act{border-top:var(--wtl-rule-head);border-bottom:var(--wtl-rule-total);padding-block:var(--wtl-space-5)}
+.path-act h3{margin-bottom:var(--wtl-space-2)}
+.path-act p{max-width:var(--wtl-measure);margin-bottom:var(--wtl-space-5)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--wtl-space-2);min-height:var(--wtl-target);padding:0 var(--wtl-space-5);border:2px solid var(--accent);border-radius:var(--wtl-radius);color:var(--accent);font:inherit;font-weight:600;text-decoration:none;background:transparent;cursor:pointer}
+.btn:hover{text-decoration:underline;text-decoration-thickness:2px}
+@media (max-width:64rem){.lines li{grid-template-columns:1fr;gap:var(--wtl-space-1)}}
+@media (max-width:52rem){.help-grid{grid-template-columns:1fr;gap:var(--wtl-space-6)}}
+
+/* ---------- footer (ink band) ---------- */
+.foot-row{display:flex;flex-wrap:wrap;gap:var(--wtl-space-4) var(--wtl-space-6);justify-content:space-between;align-items:flex-start;padding-bottom:var(--wtl-space-4);border-bottom:var(--wtl-rule-row);border-bottom-color:var(--hair)}
+.foot-row .prose{max-width:var(--wtl-measure)}
+.foot-links{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:var(--wtl-space-1) var(--wtl-space-4)}
+.foot-links a{display:inline-flex;align-items:center;min-height:var(--wtl-target);color:var(--fg)}
+.legal{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-top:var(--wtl-space-4);max-width:var(--wtl-measure-mono)}
+
+/* ---------- prose for long reads ---------- */
+/* a rights chapter, an about page, a methodology note: one column on card ground, 68ch */
+.prose{max-width:68ch}
+.prose > * + *{margin-top:var(--wtl-space-4)}
+.prose h2{margin-top:var(--wtl-space-7);max-width:var(--wtl-measure)}
+.prose h2:first-child{margin-top:0}
+.prose h3{margin-top:var(--wtl-space-6);max-width:var(--wtl-measure)}
+.prose h2 + p,.prose h3 + p{margin-top:var(--wtl-space-3)}
+.prose p,.prose li{max-width:var(--wtl-measure)}
+.prose ul,.prose ol{padding-left:var(--wtl-space-6)}
+.prose li + li{margin-top:var(--wtl-space-2)}
+.prose blockquote{margin:0;padding-left:var(--wtl-space-5);border-left:var(--wtl-rule-head);border-left-color:var(--line);font-family:var(--wtl-font-display);font-size:var(--wtl-size-3);line-height:var(--wtl-lead-lede)}
+.prose .src{grid-area:auto}
+.prose .note{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);line-height:var(--wtl-lead-note);max-width:var(--wtl-measure-mono)}
+/* a bracketed line is a hole in the page that a person, not a machine, has to fill */
+.pending{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--stamp);border:1px dashed currentColor;border-radius:var(--wtl-radius-stamp);padding:var(--wtl-space-2) var(--wtl-space-3);display:inline-block;line-height:var(--wtl-lead-label)}
+
+/* contents list: the chapters of the rights guide, numbered, none of them linked yet */
+.contents{list-style:none;padding:0;counter-reset:chapter;border-bottom:var(--wtl-rule-total);border-bottom-color:var(--line)}
+.contents li{counter-increment:chapter;display:grid;grid-template-columns:3.5rem minmax(0,1fr);column-gap:var(--wtl-space-5);align-items:baseline;padding-block:var(--wtl-space-4);border-top:var(--wtl-rule-row);border-top-color:var(--hair)}
+.contents li:first-child{border-top:var(--wtl-rule-head);border-top-color:var(--line)}
+.contents li::before{content:counter(chapter,decimal-leading-zero);font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);font-weight:600;color:var(--soft);font-variant-numeric:tabular-nums}
+.contents .ch-title{font-family:var(--wtl-font-display);font-size:var(--wtl-size-3);line-height:var(--wtl-lead-head)}
+.contents .ch-state{grid-column:2;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-top:var(--wtl-space-1)}
+@media (max-width:52rem){.contents li{grid-template-columns:2.5rem minmax(0,1fr);column-gap:var(--wtl-space-3)}}
+
+/* ---------- motion: hidden start states live ONLY here, on screen, with motion allowed, under html.js ---------- */
+@keyframes wtl-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes wtl-fade{from{opacity:0}to{opacity:1}}
+@keyframes wtl-draw{from{transform:scaleX(0)}to{transform:none}}
+@media screen and (prefers-reduced-motion:no-preference){
+  /* 1 · page load, once, rule first: the register opens, the headline rises onto it, then the lede fades in */
+  html.js .hero .eyebrow::after,html.js .page-title .eyebrow::after{animation:wtl-draw var(--wtl-dur-draw) var(--wtl-ease-out) both}
+  html.js .hero h1 span{animation:wtl-rise var(--wtl-dur-rise) var(--wtl-ease-out) var(--wtl-wait-rise) both}
+  html.js .hero h1 span+span{animation-delay:calc(var(--wtl-wait-rise) + var(--wtl-step-rise))}
+  html.js .page-title h1{animation:wtl-rise var(--wtl-dur-rise) var(--wtl-ease-out) var(--wtl-wait-rise) both}
+  html.js .hero .lede,html.js .page-title .lede{animation:wtl-fade var(--wtl-dur-lede) linear var(--wtl-wait-lede) both}
+  /* 2 · rule draw */
+  html.js .row[data-rv]:not(.in)::before{transform:scaleX(0)}
+  /* 3 · stamp press */
+  html.js [data-rv]:not(.in) .stamp{opacity:0;transform:scale(1.25) rotate(-6deg)}
+  /* 4 · roll call */
+  html.js .roll[data-rv]:not(.called) .here{opacity:0;transform:translateY(4px)}
+  html.js .state[data-rv]:not(.called) .here-alone{opacity:0;transform:translateY(4px);transition:opacity var(--wtl-dur-here) linear,transform var(--wtl-dur-here) var(--wtl-ease-out)}
+  /* 5 · atlas legend: swatches band 1 to band 5 */
+  html.js .atlas-fig[data-rv]:not(.in) tr[class^="b"] .sw::before,
+  html.js .atlas-fig[data-rv]:not(.in) .f{opacity:0}
+}
+/* a reveal by the keyboard or by the safety timer is instant: nothing performs with nobody scrolling */
+.now::before,.now .stamp,.now .here,.now .here-alone,.now .sw::before,.now .f{transition:none}
+
+/* ---------- reduced motion: every move above is switched off, nothing is hidden ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+
+/* ---------- print: the register on paper, ink on white, every source line kept ---------- */
+@media print{
+  html,body{background:#fff;color:#000}
+  .band,.band-green,.band-ink,.band-kraft,.band-wash{--bg:#fff;--fg:#000;--soft:#333;--accent:#000;--label:#333;--line:#000;--hair:#999;--stamp:#000;background:#fff;color:#000;padding-block:var(--wtl-space-5)}
+  .skip-link,.nav-toggle,.help-now,.nav,.arrow,.btn{display:none!important}
+  .site-head{border-bottom:1px solid #000}
+  a{color:#000;text-decoration:underline}
+  .row,.contents li,.state{break-inside:avoid}
+  .wrap{max-width:none;padding-inline:0}
+  .here,.here-alone{border-bottom-color:#000}
+}

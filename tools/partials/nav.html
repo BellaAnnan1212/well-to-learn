@@ -1,9 +1,13 @@
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <nav class="site-nav" aria-label="Main">
-    <a class="site-nav-home" href="{{root}}{{home.href}}"{{#home.current}} aria-current="page"{{/home.current}}>{{site.siteName}}</a>
-    <ul class="site-nav-list">
-{{#nav}}      <li><a href="{{root}}{{href}}"{{#current}} aria-current="page"{{/current}}>{{label}}</a></li>
-{{/nav}}    </ul>
-  </nav>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="{{root}}{{home.href}}"{{#home.current}} aria-current="page"{{/home.current}}>{{site.siteName}}</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav" aria-label="Main">
+      <ul>
+{{#nav}}        <li><a href="{{root}}{{href}}"{{#current}} aria-current="page"{{/current}}>{{label}}</a></li>
+{{/nav}}      </ul>
+    </nav>
+    <a class="help-now" href="#help">Need help now?</a>
+  </div>
 </header>

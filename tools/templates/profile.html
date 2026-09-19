@@ -5,62 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{display_name}} · Voices · {{site.siteName}}</title>
   <meta name="description" content="{{display_name}}, {{age_band}}, {{region}}: one of the anonymous voices on {{site.siteName}}.">
+  <meta property="og:title" content="{{display_name}} · Voices · {{site.siteName}}">
+  <meta property="og:description" content="{{display_name}}, {{age_band}}, {{region}}: one of the anonymous voices on {{site.siteName}}.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="{{site.siteName}}">
+  <meta property="og:image" content="https://bellaannan1212.github.io/well-to-learn/og-image.png">
+  <meta property="og:image:alt" content="Well to Learn, on a dark green ground: You cannot learn if you are not well.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+(function(d){d.className+=" has-js";
+if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.className+=" js";}
+})(document.documentElement);
+  </script>
   <link rel="stylesheet" href="{{root}}assets/tokens.css?v={{version}}">
   <link rel="stylesheet" href="{{root}}assets/site.css?v={{version}}">
   <link rel="icon" href="{{root}}favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{root}}favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png">
+  <script defer src="{{root}}assets/site.js?v={{version}}"></script>
 </head>
 <body class="page-voice">
 <!-- nav:start -->
 <!-- nav:end -->
 <main id="main" class="voice">
-  <header class="voice-header">
-    <img class="voice-avatar" src="{{avatar_src}}" alt="{{avatar_alt}}" width="160" height="160">
-    <p class="voice-kicker"><a href="{{root}}voices/">Voices</a></p>
-    <h1 class="voice-name">{{display_name}}</h1>
-    <dl class="voice-facts">
-      <dt>Age</dt><dd>{{age_band}}</dd>
-      <dt>Region</dt><dd>{{region}}</dd>
-{{#show_country}}      <dt>Country</dt><dd>{{country}}</dd>
-{{/show_country}}      <dt>Schooling</dt><dd>{{schooling_status}}</dd>
-    </dl>
-    <p class="src">Anonymous by design. The name is a pseudonym and the drawing is not a likeness.</p>
-  </header>
 
-{{#content_note}}  <aside class="content-note" aria-labelledby="content-note-heading">
-    <h2 id="content-note-heading">Before you read</h2>
-    <p>{{content_note}}</p>
-  </aside>
-{{/content_note}}
-  <section class="voice-glance" aria-labelledby="glance-heading">
-    <h2 id="glance-heading">At a glance</h2>
-    <ul>
-{{#key_points}}      <li>{{.}}</li>
-{{/key_points}}    </ul>
+  <!-- the profile opens the way the roll call opens: a row, and the word they answered with -->
+  <section class="band band-green voice-header">
+    <div class="wrap">
+      <p class="voice-kicker"><a href="{{root}}voices/">Voices</a> · the roll call</p>
+      <div class="voice-row" data-rv>
+        <span class="idx"><span class="vh">Row </span>{{id}}</span>
+        <img class="avatar" src="{{avatar_src}}" alt="{{avatar_alt}}" width="160" height="160">
+        <h1 class="voice-name">{{display_name}}</h1>
+        <p class="meta">{{age_band}} · {{region}}{{#show_country}} · {{country}}{{/show_country}} · {{schooling_status}}</p>
+        <span class="here">Here.</span>
+      </div>
+      <p class="src">Anonymous by design. The name is a pseudonym and the drawing is not a likeness.</p>
+    </div>
   </section>
 
-  <section class="voice-words" aria-labelledby="words-heading">
-    <h2 id="words-heading">In their words</h2>
-{{#quotes}}    <blockquote class="margin">
-      <p>{{text}}</p>
-      <footer class="src">{{#paraphrased}}(paraphrased){{/paraphrased}}{{^paraphrased}}(verbatim){{/paraphrased}}</footer>
-    </blockquote>
-{{/quotes}}  </section>
+  <!-- the story, on card ground -->
+  <section class="band band-card" aria-label="The story">
+    <div class="wrap">
+      <div class="prose">
+{{#content_note}}        <aside class="content-note" aria-labelledby="content-note-heading">
+          <h2 id="content-note-heading">Before you read</h2>
+          <p>{{content_note}}</p>
+        </aside>
+{{/content_note}}        <h2 id="glance-heading">At a glance</h2>
+        <ul>
+{{#key_points}}          <li>{{.}}</li>
+{{/key_points}}        </ul>
 
-  <section class="voice-change" aria-labelledby="change-heading">
-    <h2 id="change-heading">What they want changed</h2>
-    <p>{{wants_changed}}</p>
+        <h2 id="words-heading">In their words</h2>
+{{#quotes}}        <blockquote>
+          <p>{{text}}</p>
+        </blockquote>
+        <p class="note">{{#paraphrased}}(paraphrased){{/paraphrased}}{{^paraphrased}}(verbatim){{/paraphrased}}</p>
+{{/quotes}}
+        <h2 id="change-heading">What they want changed</h2>
+        <p>{{wants_changed}}</p>
+
+        <p class="voice-help">If this is close to home: <a class="tlink" href="#help">help lines</a></p>
+      </div>
+    </div>
   </section>
 
-  <section class="voice-method" aria-labelledby="method-heading">
-    <h2 id="method-heading">How this profile was made</h2>
-    <p>Interviewed by Bella. Consent was given before the interview; the interviewee knows the profile is public and anonymous and may withdraw it until the content freeze. Shown here: age band, UN sub-region, and schooling status only. Country appears only with the interviewee's permission. The avatar is drawn from a seed and was never chosen to resemble anyone.</p>
-    <dl class="voice-dates">
-      <dt>Approved by Bella</dt><dd><time datetime="{{approved_by_bella}}">{{approved_by_bella}}</time></dd>
-      <dt>Identifying details checked</dt><dd><time datetime="{{verified_identifying_details}}">{{verified_identifying_details}}</time></dd>
-      <dt>Safe messaging checked</dt><dd><time datetime="{{verified_safe_messaging}}">{{verified_safe_messaging}}</time></dd>
-    </dl>
-    <p class="src">See <a href="{{root}}methodology/">Methodology</a> for how every profile is checked, and <a href="{{root}}{{site.correct_this.href}}">{{site.correct_this.label}}</a> if something is wrong.</p>
+  <!-- how the page was made, on the pale wash -->
+  <section class="band band-wash" aria-labelledby="method-heading">
+    <div class="wrap">
+      <div class="prose">
+        <h2 id="method-heading">How this profile was made</h2>
+        <p>Interviewed by Bella. Consent was given before the interview; the interviewee knows the profile is public and anonymous and may withdraw it until the content freeze. The avatar is drawn from a seed and was never chosen to resemble anyone.</p>
+        <h3>What this page shows about them</h3>
+        <dl class="voice-facts">
+          <dt>Age</dt><dd>{{age_band}}</dd>
+          <dt>Region</dt><dd>{{region}}</dd>
+{{#show_country}}          <dt>Country</dt><dd>{{country}}</dd>
+{{/show_country}}          <dt>Schooling</dt><dd>{{schooling_status}}</dd>
+        </dl>
+        <p class="note">Age band, UN sub-region and schooling status only. A country appears here only with the interviewee's permission. No town, no school, no exact age, no date of birth.</p>
+        <dl class="voice-dates">
+          <dt>Approved by Bella</dt><dd><time datetime="{{approved_by_bella}}">{{approved_by_bella}}</time></dd>
+          <dt>Identifying details checked</dt><dd><time datetime="{{verified_identifying_details}}">{{verified_identifying_details}}</time></dd>
+          <dt>Safe messaging checked</dt><dd><time datetime="{{verified_safe_messaging}}">{{verified_safe_messaging}}</time></dd>
+        </dl>
+        <p class="note">See <a href="{{root}}methodology/">Methodology</a> for how every profile is checked, and <a href="{{root}}{{site.correct_this.href}}">{{site.correct_this.label}}</a> if something is wrong.</p>
+      </div>
+    </div>
   </section>
+
 </main>
 <!-- crisis:start -->
 <!-- crisis:end -->

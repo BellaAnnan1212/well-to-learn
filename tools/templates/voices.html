@@ -5,29 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Voices · {{site.siteName}}</title>
   <meta name="description" content="{{count}} anonymous young people on school, mental health, and what they want changed.">
+  <meta property="og:title" content="Voices · {{site.siteName}}">
+  <meta property="og:description" content="{{count}} anonymous young people on school, mental health, and what they want changed.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{site.siteName}}">
+  <meta property="og:image" content="https://bellaannan1212.github.io/well-to-learn/og-image.png">
+  <meta property="og:image:alt" content="Well to Learn, on a dark green ground: You cannot learn if you are not well.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+(function(d){d.className+=" has-js";
+if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.className+=" js";}
+})(document.documentElement);
+  </script>
   <link rel="stylesheet" href="{{root}}assets/tokens.css?v={{version}}">
   <link rel="stylesheet" href="{{root}}assets/site.css?v={{version}}">
   <link rel="icon" href="{{root}}favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{root}}favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png">
+  <script defer src="{{root}}assets/site.js?v={{version}}"></script>
 </head>
 <body class="page-voices">
 <!-- nav:start -->
 <!-- nav:end -->
 <main id="main" class="voices">
-  <header class="voices-header">
-    <h1>Voices</h1>
-    <p class="voices-lede">{{count}} young people, interviewed by Bella, on school, their minds, and what they want changed. Every profile is anonymous: a pseudonym, an age band, a UN sub-region, a schooling status, and a drawing that is not a likeness.</p>
-    <p class="src">Each profile was approved by the interviewee's consent, checked for identifying details, and checked against safe-messaging rules. See <a href="{{root}}methodology/">Methodology</a>.</p>
-  </header>
-  <ul class="voices-roll">
-{{#profiles}}    <li class="voices-card">
-      <a href="{{href}}">
-        <img src="{{avatar_src}}" alt="{{avatar_alt}}" width="96" height="96">
-        <span class="voices-card-name">{{display_name}}</span>
-      </a>
-      <p class="voices-card-facts">{{age_band}} · {{region}}{{#show_country}} · {{country}}{{/show_country}} · {{schooling_status}}</p>
-      <p class="voices-card-lead">{{lead}}</p>
-    </li>
-{{/profiles}}  </ul>
+
+  <section class="band band-green page-title" aria-labelledby="h1">
+    <div class="wrap">
+      <p class="eyebrow">The register · Voices</p>
+      <h1 id="h1">Voices</h1>
+      <p class="lede">{{count}} young people, interviewed by Bella, on school, their minds, and what they want changed. Every profile is anonymous: a pseudonym, an age band, a UN sub-region, a schooling status, and a drawing that is not a likeness.</p>
+    </div>
+  </section>
+
+  <section class="band band-green" aria-labelledby="roll-h">
+    <div class="wrap">
+      <div class="ledger-head">
+        <h2 id="roll-h">The roll call</h2>
+        <p class="ledger-note">Every voice here is a row before it is a card. The number is the profile's permanent key, so it never reorders and never ranks. Nobody on this site is ever stamped: stamps are for numbers.</p>
+      </div>
+      <ul class="rows voices-roll">
+{{#profiles}}        <li class="row roll" id="voice-{{id}}" data-rv>
+          <span class="idx"><span class="vh">Row </span>{{id}}</span>
+          <img class="avatar" src="{{avatar_src}}" alt="{{avatar_alt}}" width="96" height="96">
+          <div class="who"><h3><a href="{{href}}">{{display_name}}</a></h3></div>
+          <p class="meta">{{age_band}} · {{region}}{{#show_country}} · {{country}}{{/show_country}} · {{schooling_status}}</p>
+          <span class="here">Here.</span>
+          <div class="voice-body"><p>{{lead}}</p></div>
+        </li>
+{{/profiles}}      </ul>
+      <div class="roll-close">
+        <p>Each profile was given with consent, checked for identifying details, checked against safe-messaging rules, and approved before it went up.</p>
+        <a class="tlink" href="{{root}}methodology/">How every profile is checked</a>
+      </div>
+    </div>
+  </section>
+
 </main>
 <!-- crisis:start -->
 <!-- crisis:end -->
