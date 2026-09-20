@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas · {{site.siteName}}</title>
+  <meta name="description" content="A world map of {{indicator_count}} indicators on school and youth mental health, with a card for every country and the same numbers in a plain table. Every value carries its year, its type and its source.">
+  <meta property="og:title" content="Atlas · {{site.siteName}}">
+  <meta property="og:description" content="{{indicator_count}} indicators on school and youth mental health, one card per country, every value carrying its year, its type and its source.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{site.siteName}}">
+  <meta property="og:image" content="https://bellaannan1212.github.io/well-to-learn/og-image.png">
+  <meta property="og:image:alt" content="Well to Learn, on a dark green ground: You cannot learn if you are not well.">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+(function(d){d.className+=" has-js";
+if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.className+=" js";}
+})(document.documentElement);
+  </script>
+  <link rel="stylesheet" href="{{root}}assets/tokens.css?v={{version}}">
+  <link rel="stylesheet" href="{{root}}assets/site.css?v={{version}}">
+  <link rel="icon" href="{{root}}favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{root}}favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png">
+  <script defer src="{{root}}assets/site.js?v={{version}}"></script>
+  <script defer src="{{root}}vendor/d3.v7.min.js?v={{version}}"></script>
+  <script defer src="{{root}}vendor/topojson-client.min.js?v={{version}}"></script>
+  <script defer src="{{root}}assets/atlas.js?v={{version}}"></script>
+</head>
+<body class="page-atlas">
+<!-- nav:start -->
+<!-- nav:end -->
+<main id="main" class="atlas-page">
+
+  <section class="band band-green page-title" aria-labelledby="h1">
+    <div class="wrap">
+      <p class="eyebrow">The register · Atlas</p>
+      <h1 id="h1">Atlas</h1>
+      <p class="lede">{{indicator_count}} indicators on school and young minds, for {{country_count}} states. Every number carries the year it is from, the kind of number it is, and the source that published it. Where there is no number, it says so.</p>
+    </div>
+  </section>
+
+  <section class="band band-card" aria-labelledby="map-h">
+    <div class="wrap">
+      <div class="ledger-head">
+        <h2 id="map-h">The map</h2>
+        <p class="ledger-note">{{layer_count}} layers can be drawn. One at a time, so no two vintages are ever mixed in one picture.</p>
+      </div>
+
+      <div class="atlas atlas-live">
+        <div class="map-col">
+          <figure class="map-fig atlas-fig" id="mapfig">
+            <div class="map-holder" id="map-holder">
+              <p class="state-mark" id="map-fallback">The map needs JavaScript. Every number it would show is in the table below this section, which needs none.</p>
+            </div>
+            <figcaption class="map-cap" id="map-cap">{{default_layer_label}} · {{default_layer_stamp}}</figcaption>
+          </figure>
+        </div>
+
+        <div class="legend-col">
+          <fieldset class="layers">
+            <legend class="layer-legend">Layer</legend>
+            <ul class="layer-list">
+            {{{layers}}}
+            </ul>
+          </fieldset>
+
+          <table class="legend" id="legend">
+            <caption id="legend-cap">{{default_layer_label}}</caption>
+            <thead><tr><th scope="col">Band</th><th scope="col" class="range">Range</th><th scope="col">Countries</th></tr></thead>
+            <tbody id="legend-body"></tbody>
+          </table>
+          <p class="legend-foot" id="legend-note">{{default_layer_note}}</p>
+        </div>
+      </div>
+
+      <div class="ccard-holder" id="ccard-holder" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="band band-wash" aria-labelledby="table-h">
+    <div class="wrap">
+      <div class="ledger-head">
+        <h2 id="table-h">The same numbers, as a table</h2>
+        <p class="ledger-note">Every state, in alphabetical order, whether or not the map has a shape for it. This table needs no map, no mouse and no JavaScript.</p>
+      </div>
+
+      <div class="table-tools">
+        <label class="table-filter" for="tfilter">Find a country
+          <input type="search" id="tfilter" name="tfilter" autocomplete="off" placeholder="type a name">
+        </label>
+        <p class="table-count" id="tcount"></p>
+      </div>
+
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="table-h">
+        <table class="table" id="atlas-table">
+          <caption>{{country_count}} states. A cell reading "no data" means no source published a number: it does not mean zero. A 0 that a source really reported says so beside it.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Country</th>
+              {{{table_head}}}
+            </tr>
+          </thead>
+          <tbody>
+            {{{table_rows}}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-card" aria-labelledby="src-h">
+    <div class="wrap">
+      <div class="prose">
+        <h2 id="src-h">Where these numbers come from</h2>
+        <p>Every value on this page was read from one of these, on the date named. Nothing here is a number somebody remembered.</p>
+        <ul class="src-list">
+          {{#sources}}
+          <li><a href="{{url}}" rel="noopener">{{name}}</a><span class="note">{{attribution}}</span></li>
+          {{/sources}}
+        </ul>
+        <p class="note">Built {{built}}. How each value is checked, what each stamp means, and what this site will not say: <a href="{{root}}methodology/">Methodology</a>.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- crisis:start -->
+<!-- crisis:end -->
+<!-- footer:start -->
+<!-- footer:end -->
+</body>
+</html>

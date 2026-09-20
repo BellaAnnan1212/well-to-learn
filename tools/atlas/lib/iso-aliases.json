@@ -1,0 +1,52 @@
+{
+  "_note": "Hand-maintained, 2026-09-19. names: a name a source prints -> ISO3. codes: a source's own code -> ISO3, or null to ignore. ignore: names that are not ISO 3166-1 states, dropped on purpose and never reported as a failed join. Every entry was added after a real source printed that exact string, checked against site/vendor/iso-codes.json; the build fails on an alias whose target is not a real ISO3, and prints any alias no source used, because an alias nothing exercises is an untested guess.",
+
+  "names": {
+    "Czech Republic": "CZE",
+    "Republic of Moldova": "MDA",
+    "State of Palestine": "PSE",
+    "Bolivia": "BOL",
+    "Venezuela": "VEN",
+    "Congo, Republic of": "COG",
+    "DR Congo": "COD",
+    "DPR Korea": "PRK",
+    "Republic of Korea": "KOR",
+    "Iran": "IRN",
+    "Lao PDR": "LAO",
+    "Micronesia": "FSM",
+    "Netherlands": "NLD",
+    "Sao Tome and Principe": "STP",
+    "St Kitts and Nevis": "KNA",
+    "St Lucia": "LCA",
+    "St Vincent and the Grenadines": "VCT",
+    "Turkey": "TUR",
+    "UK": "GBR",
+    "USA": "USA",
+    "UR Tanzania": "TZA",
+    "United Arab Emirates": "ARE",
+    "Bosnia and Herzegovina": "BIH",
+    "Central African Republic": "CAF",
+    "Taiwan": "TWN",
+    "Democratic People's Republic of Korea": "PRK",
+    "Democratic Republic of the Congo": "COD",
+    "United Republic of Tanzania": "TZA",
+    "Naoero": "NRU",
+    "Palestine": "PSE",
+    "Syria": "SYR"
+  },
+
+  "codes": {
+    "CHI": null,
+    "XKX": null
+  },
+
+  "_ignore_note": "Only entries that are genuinely NOT in ISO 3166-1. Cook Islands (COK) and Niue (NIU) were wrongly listed here on 2026-09-19: both ARE ISO 3166-1 states, and ignoring them dropped their treaty rows, so their country cards read 'Not bound' for the CRC when the UN lists both as parties by accession (Cook Islands 6 Jun 1997, Niue 20 Dec 1995). That is a false legal claim about a real country, produced by an ignore list that looked tidy. Before adding anything here, check site/vendor/iso-codes.json for the name first.",
+
+  "ignore": [
+    "Republic of Kosovo",
+    "Kosovo",
+    "Channel Islands",
+    "European Union",
+    "World"
+  ]
+}

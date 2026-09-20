@@ -21,6 +21,8 @@ import {
 import { loadPartials, stampHtml } from './stamp.mjs';
 
 export const BANNED_PHRASES = ['epidemic', 'crisis', 'diagnosed', 'skyrocketing', 'committed suicide'];
+// The exact strings a withheld profile prints instead of a name (Bella's rulings, 2026-09-19).
+export const WITHHELD_NAMES = new Set(['Name withheld', 'Unnamed, by request']);
 export const AGE_BANDS = ['12-14', '15-17', '18-19'];
 export const MAX_QUOTE_WORDS = 40;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -85,6 +87,20 @@ export function validateProfile(p) {
   }
   need('content_note', p.content_note === null || isNonEmptyString(p.content_note), 'must be one sentence or null');
 
+  // A withheld interviewee's working pseudonym must not survive anywhere in this file.
+  // Bella ruled on 2026-09-19 that interviews 04, 07, 08 and 12 print "Name withheld" (never
+  // "by request": none of the four asked), and that interview 14 prints "Unnamed, by request"
+  // because that one did. Dropping `pseudonym` from publicView stops today's leak; this stops
+  // tomorrow's, when somebody restores a working name to the field because it looked empty by
+  // mistake. The name lives in the Tier B intake and nowhere else.
+  if (isNonEmptyString(p.display_name) && WITHHELD_NAMES.has(p.display_name.trim())) {
+    need(
+      'pseudonym',
+      !isNonEmptyString(p.pseudonym) || p.pseudonym.trim() === p.display_name.trim(),
+      `is "${p.pseudonym}" on a profile whose display_name is "${p.display_name}": a withheld interviewee's working name stays in the Tier B intake and never in this file`,
+    );
+  }
+
   need('consent', p.consent && typeof p.consent === 'object', 'missing {how, date}');
   if (p.consent && typeof p.consent === 'object') {
     need('consent.how', isNonEmptyString(p.consent.how), 'missing');
@@ -136,7 +152,13 @@ export function publicView(p) {
   return {
     id: p.id,
     slug: p.slug,
-    pseudonym: p.pseudonym,
+    // `pseudonym` is deliberately NOT carried. It is the working name in Bella's private notes;
+    // `display_name` is the only name any page prints. It used to be copied here, into
+    // site/data/profiles.public.json, which is a PUBLISHED file. No template rendered it, so
+    // nothing would ever have looked wrong: the working name of a withheld interviewee would
+    // simply have been served as JSON to anyone who asked for the file. A field that nothing
+    // displays is the easiest place for an anonymity leak to survive every review.
+    // (Found by the p07 round-4 fidelity critic, 2026-09-19.)
     display_name: p.display_name,
     age_band: p.age_band,
     region: p.region,

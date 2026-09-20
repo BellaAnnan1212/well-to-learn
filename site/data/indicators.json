@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "built": "2026-09-19",
+  "stamps": {
+    "measured": "Somebody counted this.",
+    "modelled": "A model estimated this from other numbers.",
+    "self-reported": "A government answered a questionnaire.",
+    "legal": "This is what the law or the treaty record says."
+  },
+  "ramp": [
+    "--wtl-ramp-1",
+    "--wtl-ramp-2",
+    "--wtl-ramp-3",
+    "--wtl-ramp-4",
+    "--wtl-ramp-5"
+  ],
+  "nodata": "Grey hatch. No colour, ever, and never a zero.",
+  "indicators": [
+    {
+      "id": "suicide_10_19",
+      "label": "Suicide rate, ages 10 to 19",
+      "short": "Suicide, 10 to 19",
+      "unit": "per 100,000 people a year",
+      "kind": "modelled",
+      "source": "who-gho-sdgsuicide",
+      "layer": true,
+      "default_on": false,
+      "bands": [
+        1,
+        2.5,
+        5,
+        9
+      ],
+      "decimals": 1,
+      "max_age": 6,
+      "note": "A WHO modelled estimate for 2021, not a count of deaths. WHO publishes no uncertainty interval for this age split, so none is shown. Rates are never ranked here and never appear without help lines on the same page.",
+      "safe_messaging": true,
+      "coverage": 185
+    },
+    {
+      "id": "suicide_std",
+      "label": "Age-standardised suicide rate, all ages",
+      "short": "Suicide, all ages, standardised",
+      "unit": "per 100,000 people a year",
+      "kind": "modelled",
+      "source": "who-gho-mh12",
+      "layer": false,
+      "bands": null,
+      "decimals": 1,
+      "max_age": 6,
+      "note": "A different measure from the 10 to 19 layer: all ages, and standardised for the shape of the population. The two are never compared with each other.",
+      "safe_messaging": true,
+      "coverage": 185
+    },
+    {
+      "id": "psychiatrists",
+      "label": "Psychiatrists per 100,000 people",
+      "short": "Psychiatrists",
+      "unit": "per 100,000 people",
+      "kind": "self-reported",
+      "source": "who-gho-mh6",
+      "layer": true,
+      "default_on": false,
+      "bands": [
+        0.1,
+        0.5,
+        2,
+        8
+      ],
+      "decimals": 2,
+      "max_age": 12,
+      "note": "Reported by countries to WHO between 2013 and 2017 and never refreshed since. Every value wears its own year, and the layer is off unless you turn it on.",
+      "coverage": 146
+    },
+    {
+      "id": "out_of_school_lsec",
+      "label": "Out-of-school rate, lower secondary age",
+      "short": "Out of school",
+      "unit": "per cent of the age group",
+      "kind": "modelled",
+      "source": "uis-rofst",
+      "layer": true,
+      "default_on": true,
+      "bands": [
+        5,
+        12,
+        25,
+        40
+      ],
+      "decimals": 1,
+      "max_age": 5,
+      "note": "A UNESCO model, not a headcount: it combines school records with population estimates. Bella ruled on 2026-09-19 that this layer may carry colour, tagged as modelled.",
+      "coverage": 186
+    },
+    {
+      "id": "completion_lsec",
+      "label": "Completion rate, lower secondary",
+      "short": "Completion",
+      "unit": "per cent",
+      "kind": "modelled",
+      "source": "uis-cr",
+      "layer": true,
+      "default_on": false,
+      "bands": [
+        40,
+        60,
+        80,
+        92
+      ],
+      "decimals": 1,
+      "max_age": 6,
+      "note": "The share of young people who finish lower secondary school, three to five years after the age they should have.",
+      "higher_is_better": true,
+      "coverage": 146
+    },
+    {
+      "id": "learning_poverty",
+      "label": "Learning poverty at age 10",
+      "short": "Learning poverty",
+      "unit": "per cent of 10-year-olds",
+      "kind": "modelled",
+      "source": "worldbank-lpv",
+      "layer": true,
+      "default_on": false,
+      "bands": [
+        10,
+        30,
+        55,
+        80
+      ],
+      "decimals": 1,
+      "max_age": 8,
+      "note": "A modelled combination of two things: children who cannot read a simple passage by the end of primary school, and children who are not in school at all. Each country value carries its own year, which can be as old as 2001.",
+      "coverage": 124
+    },
+    {
+      "id": "school_corporal_punishment",
+      "label": "Corporal punishment prohibited in schools",
+      "short": "Corporal punishment",
+      "unit": "prohibited, partly prohibited, or not",
+      "kind": "legal",
+      "source": "end-corporal-punishment",
+      "layer": true,
+      "default_on": false,
+      "bands": null,
+      "categories": [
+        {
+          "value": "YES",
+          "label": "Prohibited",
+          "band": 1
+        },
+        {
+          "value": "SOME",
+          "label": "Partly prohibited",
+          "band": 3
+        },
+        {
+          "value": "NO",
+          "label": "Not prohibited",
+          "band": 5
+        }
+      ],
+      "max_age": null,
+      "note": "The legal position as End Corporal Punishment recorded it in March 2025. Where their table put the entry in square brackets it is marked unconfirmed here, because that is their own word for it.",
+      "coverage": 198
+    },
+    {
+      "id": "op3_crc",
+      "label": "Can a young person complain to the UN Committee",
+      "short": "UN complaints protocol",
+      "unit": "party, signatory, or neither",
+      "kind": "legal",
+      "source": "un-treaties",
+      "layer": true,
+      "default_on": false,
+      "bands": null,
+      "categories": [
+        {
+          "value": "party",
+          "label": "Party: a complaint is possible",
+          "band": 1
+        },
+        {
+          "value": "signatory",
+          "label": "Signed, not yet bound",
+          "band": 3
+        },
+        {
+          "value": "neither",
+          "label": "Not bound",
+          "band": 5
+        }
+      ],
+      "max_age": null,
+      "note": "Only the states party to the third Optional Protocol to the CRC accept complaints from children, and only after the courts at home have been tried. Chapter 7 of Your rights says how.",
+      "coverage": 249
+    },
+    {
+      "id": "education_under_attack",
+      "label": "Profiled in Education under Attack 2026",
+      "short": "Education under Attack",
+      "unit": "profiled, or not profiled",
+      "kind": "measured",
+      "source": "gcpea",
+      "layer": false,
+      "bands": null,
+      "max_age": null,
+      "note": "GCPEA profiles 28 countries. This is never a colour and never a ranking: the count is of REPORTED attacks, and a country with no profile has not been shown to be safe. It may be a country nobody is counting in.",
+      "coverage": 28
+    },
+    {
+      "id": "atlas2024",
+      "label": "WHO Mental Health Atlas 2024 country block",
+      "short": "WHO Atlas 2024",
+      "unit": "policy, school programme, spending share",
+      "kind": "self-reported",
+      "source": "who-atlas-2024",
+      "layer": false,
+      "bands": null,
+      "max_age": null,
+      "note": "Answers a government gave WHO on a checklist in 2024, read by hand from that country profile PDF with the page noted. A country with no block here has not been read yet; that is a fact about this site, not about the country.",
+      "coverage": 0
+    }
+  ]
+}

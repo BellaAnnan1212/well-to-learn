@@ -1,0 +1,21 @@
+iso3,indicator,value,year,source_url,page,transcriber,date
+# WHO Mental Health Atlas 2024 country profiles, hand-transcribed.
+#
+# One row per country per field. Fields used by the country card:
+#   atlas_child_policy            a stand-alone child and adolescent mental health policy or plan (yes / no)
+#   atlas_school_programme        a functioning school-based mental health programme (yes / no)
+#   atlas_suicide_strategy        a national suicide prevention strategy (yes / no)
+#   atlas_spend_share             mental health as a share of the government health budget (per cent)
+#   atlas_child_workers           specialised child and adolescent mental health workers per 100,000 people
+#
+# Every value here is SELF-REPORTED by the country to WHO on a checklist. The card says so on the
+# block, not in a footnote. "no" means the country answered no; a country with NO ROW here has not
+# been read yet, which the card prints as "not yet read from the WHO profile". Those are different
+# facts: a missing row is never rendered as "no" and never as zero.
+#
+# source_url is the country's own profile PDF. page is the page number IN THAT PDF the value was
+# read from. transcriber is a person's name. date is the day it was typed, from the system clock.
+#
+# No rows yet: the transcription starts from the sub-regions the interviewees live in, per the
+# plan, and needs Bella's approved profile list to know which those are. Until then the Atlas 2024
+# block is absent from every card and coverage says so in words.

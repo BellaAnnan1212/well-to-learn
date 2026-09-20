@@ -186,8 +186,56 @@ img,svg{max-width:100%}
 .layer-note{max-width:var(--wtl-measure)}
 @media (max-width:52rem){.atlas{grid-template-columns:1fr}}
 
+/* ---------- the live Atlas page: layer picker, hit layer, cross-fade ---------- */
+/* On the Atlas page a layer change is ONE uniform fade of the whole map. The home preview's
+   band-by-band stagger is deliberately cancelled here: an order that ended on the darkest band
+   would make a finale of the highest rates, beside a help block. */
+.map-uniform .f,.map-uniform .fills{transition:opacity var(--wtl-dur-fill) linear 0s}
+.map .fills{transition:opacity var(--wtl-dur-fill) linear}
+.map-holder{position:relative}
+.map-holder .state-mark{padding:var(--wtl-space-5) 0}
+.map .hit{fill:transparent;stroke:none;cursor:pointer}
+/* No stroke on the hit path itself. A single red stroke here lands on whatever band the country
+   is painted in: red is 2.54 on ramp-3, 1.22 on ramp-4 and 2.12 on ramp-5, and ramp-5 is the same
+   hex as --wtl-ink, so that is C2's banned "red on ink" exactly. The ring is drawn instead as a
+   halo under a red line in the .focus-ring group, the same construction the selection uses, which
+   gives it its own light ground and takes its contrast off the data. */
+.map .hit:focus-visible{outline:none}
+.map .focus-line{fill:none;stroke:var(--wtl-red);stroke-width:var(--wtl-map-sel)}
+.map .selection path,.map .focus-ring path{pointer-events:none}
+.layers{border:0;padding:0;margin:0 0 var(--wtl-space-4)}
+.layer-legend{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);padding:0}
+.layer-list{list-style:none;padding:0;margin-top:var(--wtl-space-2);border-bottom:var(--wtl-rule-total);border-bottom-color:var(--line)}
+.layer-list li{border-top:var(--wtl-rule-row);border-top-color:var(--hair)}
+.layer-list li:first-child{border-top:var(--wtl-rule-head);border-top-color:var(--line)}
+.layer-pick{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:var(--wtl-space-3);min-height:var(--wtl-target);cursor:pointer}
+.layer-pick:hover{background:var(--hover)}
+.layer-pick input{width:1.1rem;height:1.1rem;accent-color:var(--wtl-green);margin:0}
+.layer-name{font-weight:600}
+.layer-stamp{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);letter-spacing:var(--wtl-track-caps);text-transform:uppercase}
+.table-tools{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--wtl-space-2) var(--wtl-space-5);margin-top:var(--wtl-space-4)}
+.table-filter{display:inline-flex;align-items:center;gap:var(--wtl-space-3);font-weight:600}
+.table-filter input{font:inherit;font-weight:400;min-height:var(--wtl-target);padding:0 var(--wtl-space-3);border:2px solid var(--wtl-muted);border-radius:var(--wtl-radius);background:var(--wtl-card);color:var(--wtl-ink)}
+.table-count{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);font-variant-numeric:tabular-nums}
+.table-scroll{overflow-x:auto}
+.table-scroll:focus-visible{outline:var(--ring);outline-offset:var(--wtl-focus-offset)}
+.src-list{list-style:none;padding:0}
+.src-list li{padding-block:var(--wtl-space-3);border-top:var(--wtl-rule-row);border-top-color:var(--hair)}
+.src-list li:first-child{border-top:var(--wtl-rule-head);border-top-color:var(--line)}
+/* An attribution string carries a raw API URL, and a UIS query URL is one unbreakable token wide
+   enough to push the whole page sideways at 390 (measured: scrollWidth 542 against a 390 viewport).
+   `.src` already breaks anywhere for this reason; the source list needs the same. */
+.src-list .note{display:block;margin-top:var(--wtl-space-1);overflow-wrap:anywhere}
+.src-list a{overflow-wrap:anywhere}
+@media (max-width:52rem){.table-filter{flex-basis:100%}.table-filter input{flex:1}}
+
 /* ---------- country card ---------- */
 .ccard{border-top:var(--wtl-rule-head);padding-block:var(--wtl-space-5);background:var(--wtl-card)}
+.ccard-title{scroll-margin-top:var(--wtl-space-5)}
+.ccard-title:focus-visible{outline:var(--ring);outline-offset:var(--wtl-focus-offset)}
+.ccard .k{min-width:0}
+.ccard-close{min-height:var(--wtl-target)}
+.ccard-holder:empty{display:none}
 .ccard-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--wtl-space-2) var(--wtl-space-4);align-items:flex-start}
 .ccard .meta{margin-top:var(--wtl-space-1)}
 .ccard h4{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);margin:var(--wtl-space-5) 0 var(--wtl-space-1)}
@@ -210,6 +258,9 @@ kbd{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);border:1px soli
 .table td.n{font-weight:600}
 .table td.nd{font-family:var(--wtl-font-mono);color:var(--soft)} /* no data is a word, never a zero */
 .table .year{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft)}
+/* a value past the max_age its own indicator publishes. Red is the stamp colour and works on
+   card, wash and kraft; it is never used on the green or ink bands, where it fails contrast */
+.stale{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--stamp);white-space:nowrap}
 @media (max-width:52rem){.table{font-size:var(--wtl-size-1)}.table th,.table td{padding:var(--wtl-space-2)}}
 
 /* ---------- roll call (green band) ---------- */
@@ -344,7 +395,18 @@ kbd{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);border:1px soli
   /* 5 · atlas legend: swatches band 1 to band 5 */
   html.js .atlas-fig[data-rv]:not(.in) tr[class^="b"] .sw::before,
   html.js .atlas-fig[data-rv]:not(.in) .f{opacity:0}
+  /* 6 · the country card arrives from the map it was opened from: 16px and a fade, once, 300ms.
+     Nothing inside it animates, so every number is readable from the card's first frame.
+     This is a keyframe animation and NOT a transition on a class, on purpose. A transition needs
+     a second style pass to run, and a tab that is hidden or backgrounded runs neither that pass
+     nor an animation frame: a card whose only route to visible is a frame that never comes is
+     content hidden for good. The base rule below leaves .ccard fully visible, so when this
+     animation does not run at all the card is simply there. `forwards`, not `both`: `both` also
+     holds the FROM state before the animation starts, which in a tab that renders no frames is
+     opacity 0 for ever. With `forwards` the card is visible until the animation actually runs. */
+  html.js .ccard{animation:wtl-card-in var(--wtl-dur-fill) var(--wtl-ease-out) forwards}
 }
+@keyframes wtl-card-in{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
 /* a reveal by the keyboard or by the safety timer is instant: nothing performs with nobody scrolling */
 .now::before,.now .stamp,.now .here,.now .here-alone,.now .sw::before,.now .f{transition:none}
 

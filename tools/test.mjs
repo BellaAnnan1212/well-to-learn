@@ -235,6 +235,17 @@ try {
   r = mutate((p) => { p.quotes[0].text = 'He said <b>"no"</b> & left.'; });
   assert(r.code === 0, 'a quote with markup characters is accepted (and escaped below)');
 
+  // A withheld interviewee's working name must not survive in the profile file at all.
+  // Bella ruled 2026-09-19 that 04, 07, 08 and 12 print "Name withheld" and 14 prints
+  // "Unnamed, by request". The leak this guards is quiet: profiles.public.json is published,
+  // and no template renders `pseudonym`, so a restored working name would look like nothing.
+  r = mutate((p) => { p.display_name = 'Name withheld'; p.pseudonym = 'Thandiwe'; });
+  assert(r.code === 1 && r.out.includes('withheld interviewee'), 'refuses a working pseudonym on a "Name withheld" profile');
+  r = mutate((p) => { p.display_name = 'Unnamed, by request'; p.pseudonym = 'Marigold'; });
+  assert(r.code === 1 && r.out.includes('withheld interviewee'), 'refuses a working pseudonym on an "Unnamed, by request" profile');
+  r = mutate((p) => { p.display_name = 'Name withheld'; p.pseudonym = 'Name withheld'; });
+  assert(r.code === 0, 'accepts a withheld profile whose pseudonym matches its display name');
+
   console.log('\nbuild-voices: valid build');
   write(profilesPath, JSON.stringify(valid, null, 2));
   for (const p of valid) write(path.join(site, 'assets', 'avatars', `${p.id}.svg`), '<svg xmlns="http://www.w3.org/2000/svg"/>\n');
@@ -267,6 +278,9 @@ try {
   assert(roll.includes('src="../assets/avatars/p02.svg"'), 'roll avatar path resolved at depth 1');
   const pub = JSON.parse(fs.readFileSync(path.join(site, 'data', 'profiles.public.json'), 'utf8'));
   assert(pub.length === 2 && pub.every((p) => !('consent' in p) && !('intake' in p)), 'public json omits consent and intake');
+  // profiles.public.json is served to anyone who asks for it. The working pseudonym is not a
+  // field any page prints, which is exactly why it could sit there unnoticed.
+  assert(pub.every((p) => !('pseudonym' in p)), 'public json omits the working pseudonym entirely');
   assert(pub[0].country === null && pub[1].country === 'Philippines', 'public json hides the country unless show_country');
 
   // Escaping: rebuild with markup in a quote and confirm it is escaped.

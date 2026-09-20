@@ -1,6 +1,20 @@
-# tools/atlas: the Atlas data pipeline (contract, no code yet)
+# tools/atlas: the Atlas data pipeline
 
-This directory holds the pipeline that turns the ten v1 indicators into `site/data/atlas.json`, `site/data/indicators.json`, `site/data/sources.json`, and `docs/coverage.md`. Written 2026-09-04 from the B3 section of the project plan (`05_Projects/well-to-learn/plan.md`) so the next session builds against a fixed contract. Nothing below exists yet except this file.
+This directory holds the pipeline that turns the ten v1 indicators into `site/data/atlas.json`, `site/data/indicators.json`, `site/data/sources.json`, and `docs/coverage.md`. The contract below was written 2026-09-04 from the B3 section of the project plan (`05_Projects/well-to-learn/plan.md`); **the pipeline was built against it on 2026-09-19 and runs.**
+
+## Built, and what the first real run found (2026-09-19)
+
+`node tools/atlas/build-data.mjs` gives 249 states, 10 indicators, **0 failed joins**. Coverage: suicide 10 to 19 and the age-standardised rate 185 countries each, psychiatrists 146, out-of-school 186, completion 146, learning poverty 124, corporal punishment 196, OP3-CRC 249, Education under Attack 28, WHO Atlas 2024 block 0 (nothing transcribed by hand yet).
+
+Counts checked against what the source itself prints, rather than assumed: CRC 196 parties, ICESCR 173, CRPD 194, OP3-CRC 54, every one "status as at 2026-09-19" read off the UN page; and the corporal-punishment table's own summary row, 137 schools fully prohibited and 62 not fully, against 135 and 61 parsed. The two and the one are Cook Islands, Niue and Kosovo, which sit in that table's totals and have no ISO 3166-1 code.
+
+Three things the build refused on its first run, each a guard working rather than a bug:
+
+- The treaty-count check FAILED the build until the check itself was fixed to compare the UN's published total against parties parsed **before** the ISO join. The European Union, Cook Islands and Niue are participants without an ISO3, so a post-join count can never equal the UN's own number. The guard was right that something was wrong; the wrong thing was the guard.
+- 82 "failed joins" were World Bank aggregates (AFE, ARB, LMY and the rest) leaking out of the indicator series. They are now dropped through the country list's own `region: NA` flag, as a deliberate drop, so the failed-join table stays short enough that one real failure is visible in it.
+- Footnote runs on the UN grid ("United Kingdom of Great Britain and Northern Ireland 6 , 18 , 19 ,") are stripped by a rule that takes the whole trailing run. The four states that print their own name (Naoero, DPR Korea, DR Congo, UR Tanzania) are aliases, each added only after a real source printed that exact string.
+
+Reproducibility: `--offline` rebuilds all three JSON files byte for byte from `data/raw/`. `docs/coverage.md` differs by one line, naming the mode the run was in; that is on purpose, so a coverage report can never hide that it came from the cache.
 
 ## Constraints (same as the rest of the repo)
 
