@@ -108,11 +108,16 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
   <div class="wrap">
     <aside class="crisis" aria-labelledby="crisis-heading">
       <h2 id="crisis-heading">If you need help now</h2>
-      <p class="crisis-lede">You do not need a reason, and you do not have to be sure. These lines are free and confidential, and someone is there now.</p>
+      <!-- "and someone is there now" was removed 2026-09-19 after the chapter 9 critic pass. The
+           two United States lines really are 24/7 and say so on their own pages, but this block
+           also points at a directory of more than 1,700 services whose hours vary, so a blanket
+           "someone is there now" was a promise this site cannot keep for every line it offers.
+           Each line now carries only what its own publisher states. -->
+      <p class="crisis-lede">You do not need a reason, and you do not have to be sure. These lines are free and confidential.</p>
       <ul class="lines crisis-lines">
-        <li><span class="how">988 call or text (US)</span><span>988 Suicide and Crisis Lifeline</span></li>
+        <li><span class="how">988 call or text (US)</span><span>988 Suicide and Crisis Lifeline: call, text or chat, any hour</span></li>
         <li><span class="how">Crisis Text Line (text HOME to 741741, US)</span><span>free, confidential, any hour</span></li>
-        <li><span class="how"><a href="https://findahelpline.com/" rel="noopener">findahelpline.com (international)</a></span><span>help lines by country</span></li>
+        <li><span class="how"><a href="https://findahelpline.com/" rel="noopener">findahelpline.com (international)</a></span><span>help lines by country; hours vary by service</span></li>
       </ul>
       <p class="crisis-danger">if you are in danger now call local emergency services</p>
       <p class="crisis-disclaimer">this site is not a crisis service</p>
