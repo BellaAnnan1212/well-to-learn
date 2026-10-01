@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "built": "2026-09-19",
+  "built": "2026-10-01",
   "note": "Every value on this site names one of these. The attribution string is printed as written; {extracted} is the date the file behind it was read.",
   "sources": [
     {
@@ -128,7 +128,7 @@
       "share_alike": false,
       "non_commercial": false,
       "attribution": "Legal status from End Corporal Punishment, Global progress towards prohibiting all corporal punishment, last updated March 2025.",
-      "may_not": "The table itself is NOT republished. One fact per country, with attribution and a link to the source. Written permission has been asked for; until it is given this is the limit.",
+      "may_not": "The table itself is NOT republished. One fact per country, with attribution and a link to the source. No licence is published, so this is the limit this site keeps.",
       "extracted": "2026-09-19",
       "status_as_at": null,
       "table_updated": "March 2025"
@@ -142,7 +142,7 @@
       "share_alike": false,
       "non_commercial": false,
       "attribution": "Education under Attack 2026, Global Coalition to Protect Education from Attack, read 2026-09-19.",
-      "may_not": "A badge and a link out, never a map colour and never a ranking. Written permission has been asked for.",
+      "may_not": "A badge and a link out, never a map colour and never a ranking. No further terms are published, so this is the limit this site keeps.",
       "extracted": "2026-09-19",
       "status_as_at": null,
       "table_updated": null

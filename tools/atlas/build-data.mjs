@@ -291,7 +291,7 @@ const SOURCES = [
     share_alike: false,
     non_commercial: false,
     attribution: 'Legal status from End Corporal Punishment, Global progress towards prohibiting all corporal punishment, last updated {table_updated}.',
-    may_not: 'The table itself is NOT republished. One fact per country, with attribution and a link to the source. Written permission has been asked for; until it is given this is the limit.',
+    may_not: 'The table itself is NOT republished. One fact per country, with attribution and a link to the source. No licence is published, so this is the limit this site keeps.',
   },
   {
     id: 'gcpea',
@@ -302,7 +302,7 @@ const SOURCES = [
     share_alike: false,
     non_commercial: false,
     attribution: 'Education under Attack 2026, Global Coalition to Protect Education from Attack, read {extracted}.',
-    may_not: 'A badge and a link out, never a map colour and never a ranking. Written permission has been asked for.',
+    may_not: 'A badge and a link out, never a map colour and never a ranking. No further terms are published, so this is the limit this site keeps.',
   },
   {
     id: 'who-atlas-2024',

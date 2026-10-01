@@ -85,6 +85,8 @@ img,svg{max-width:100%}
 /* page title (green band): what every page but the home page opens with */
 .page-title{padding-block:var(--wtl-space-7)}
 .page-title .eyebrow{margin-bottom:var(--wtl-space-4)}
+/* the one link an eyebrow may carry (a chapter's way back to the contents) gets the 44px hit area */
+.page-title .eyebrow a{display:inline-flex;align-items:center;min-height:var(--wtl-target)}
 .page-title .eyebrow::after{content:"";display:block;margin-top:var(--wtl-space-3);border-top:var(--wtl-rule-head);border-top-color:var(--line)}
 .page-title h1{margin-bottom:var(--wtl-space-4)}
 .page-title .lede{max-width:var(--wtl-measure)}
@@ -373,6 +375,31 @@ kbd{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);border:1px soli
 .contents .ch-title{font-family:var(--wtl-font-display);font-size:var(--wtl-size-3);line-height:var(--wtl-lead-head)}
 .contents .ch-state{grid-column:2;font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);color:var(--soft);margin-top:var(--wtl-space-1)}
 @media (max-width:52rem){.contents li{grid-template-columns:2.5rem minmax(0,1fr);column-gap:var(--wtl-space-3)}}
+/* a published chapter is the one row of the contents list that is a link; its hit area is the 44px floor */
+.contents a.ch-title{display:inline-flex;align-items:center;min-height:var(--wtl-target);color:var(--fg);text-decoration-color:var(--accent)}
+
+/* rights chapter: each right is one entry in the register. Six labelled lines, ruled like a ledger:
+   2px opens it, 1px separates, the double rule closes it. The labels are mono caps in the label
+   colour and NEVER a stamp: stamps are for numbers. The treaty's own words are the one line set in
+   the display serif, so the line the claim comes from is the line the eye lands on. */
+.entry + .entry{margin-top:var(--wtl-space-7)}
+.entry h2{max-width:var(--wtl-measure);margin-bottom:var(--wtl-space-4)}
+.entry-body{max-width:68ch;margin-bottom:var(--wtl-space-5)}
+.entry-body > * + *{margin-top:var(--wtl-space-4)}
+.entry-body p,.entry-body li{max-width:var(--wtl-measure)}
+.entry-body ul,.entry-body ol{padding-left:var(--wtl-space-6)}
+.entry-body li + li{margin-top:var(--wtl-space-2)}
+.kyr{border-top:var(--wtl-rule-head);border-top-color:var(--line);border-bottom:var(--wtl-rule-total);border-bottom-color:var(--line)}
+.kyr-row{display:grid;grid-template-columns:9.5rem minmax(0,1fr);column-gap:var(--wtl-space-5);padding-block:var(--wtl-space-4);align-items:baseline}
+.kyr-row + .kyr-row{border-top:var(--wtl-rule-row);border-top-color:var(--hair)}
+.kyr dt{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);line-height:var(--wtl-lead-label)}
+.kyr dd{margin:0;max-width:var(--wtl-measure);overflow-wrap:break-word}
+.kyr-quote dd{font-family:var(--wtl-font-display);font-size:var(--wtl-size-3);line-height:var(--wtl-lead-lede)}
+.kyr-quote dd a{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1)}
+/* a citation link inside an entry, the wash list or a chapter paragraph clears the 24px floor the same way a source-note link does */
+.kyr dd a,.entry-body a,.page-chapter .prose li a,.src-list a,.line a{padding-block:var(--wtl-space-1)}
+.kyr-claim dd{font-weight:600}
+@media (max-width:52rem){.kyr-row{grid-template-columns:minmax(0,1fr);row-gap:var(--wtl-space-1)}}
 
 /* ---------- motion: hidden start states live ONLY here, on screen, with motion allowed, under html.js ---------- */
 @keyframes wtl-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -422,7 +449,7 @@ kbd{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);border:1px soli
   .skip-link,.nav-toggle,.help-now,.nav,.arrow,.btn{display:none!important}
   .site-head{border-bottom:1px solid #000}
   a{color:#000;text-decoration:underline}
-  .row,.contents li,.state{break-inside:avoid}
+  .row,.contents li,.state,.kyr-row{break-inside:avoid}
   .wrap{max-width:none;padding-inline:0}
   .here,.here-alone{border-bottom-color:#000}
 }

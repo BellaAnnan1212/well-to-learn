@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "built": "2026-09-19",
+  "built": "2026-10-01",
   "note": "One row per ISO 3166-1 state, whether or not a source has a number for it. A missing indicator means no data: it is drawn as a grey hatch and written \"no data\". It never means zero. A zero that a source really reported carries reported_zero: true.",
   "licence": "Derived data, licensed to match the strictest source it contains: CC BY-NC-SA (WHO) and ShareAlike (UNESCO). See sources.json.",
   "countries": {

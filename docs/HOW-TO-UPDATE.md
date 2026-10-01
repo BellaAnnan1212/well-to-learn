@@ -1,8 +1,8 @@
 # How to update Well to Learn
 
-Three runbooks. The first needs only a browser. The other two need the repository on a computer with Node 24 and git.
+Four runbooks. The first needs only a browser. The others need the repository on a computer with Node 24 and git.
 
-Last checked: 2026-09-04.
+Runbooks 1 to 3 last checked: 2026-09-04. Runbook 4 written and run: 2026-10-01.
 
 ## 1. Fix a word (browser only, about a minute)
 
@@ -15,6 +15,7 @@ Last checked: 2026-09-04.
 
 Things to know:
 
+- Three pages are generated and must NOT be edited this way, because the next build overwrites them: every page under `site/rights/` (edit the chapter in `content/rights/` and follow runbook 4), `site/methodology/index.html` (edit `tools/templates/methodology.html`), and `site/atlas/index.html` (edit `tools/templates/atlas.html`).
 - The nav, the crisis block and the footer on every page are generated. They sit between HTML comment markers, and the stamper rewrites them. To change them, edit `tools/partials/nav.html`, `crisis.html` or `footer.html` and follow runbook 3 instead. An edit made inside the markers is overwritten the next time the stamper runs.
 - If the run goes red, open it and read the last lines. The usual cause is a typo in a filename. Fix it with another edit and commit again; nothing goes live until a run goes green.
 - Every page keeps the crisis block. Never remove it.
@@ -62,3 +63,22 @@ A number written into page text (a headline fact on the home page, a figure in a
 3. Run `node tools/check.mjs`, stage the page by name, commit, push.
 
 Rules that apply to every number on the site: no composite score, no ranking of countries, no data means grey and "no data" (never zero), and any rate that concerns suicide is shown next to the crisis block and the uncertainty note.
+
+## 4. Publish, correct or withdraw a rights chapter
+
+The nine chapters are written and checked outside this repository. Only an APPROVED chapter is copied in, because this repository is public: a draft in it would be a published draft.
+
+Publishing a chapter:
+
+1. The chapter has been through its legal check with no open row, and Bella has approved the exact text. In its frontmatter set `status: approved`, `approved_by_bella: YYYY-MM-DD` and `critic_cleared: YYYY-MM-DD` (the day the last check came back with nothing refuted), and make sure `unverified: []` is empty.
+2. Copy the file into `content/rights/`, keeping its name (`ch-NN-<slug>.md`). The slug and the title must match that chapter's line in `content/rights/chapters.json`.
+3. Run `node tools/build-rights.mjs`. It writes `site/rights/<slug>/index.html` and rebuilds the contents list. If it refuses, it names the file and the line; nothing is written until every refusal is fixed.
+4. Add the page to `site/sitemap.xml`: copy one `<url>` line, change the path to `rights/<slug>/`, set `lastmod` to today.
+5. Run `node tools/build-methodology.mjs` (it counts published chapters), then `node tools/stamp.mjs`, then `node tools/check.mjs` and `node tools/test.mjs`.
+6. Stage by name: `git add content/rights/ch-NN-<slug>.md site/rights/<slug>/index.html site/rights/index.html site/methodology/index.html site/sitemap.xml`, then commit and push.
+
+Correcting a published chapter: edit the file in `content/rights/`, have the changed sentence checked against its source, update `critic_cleared`, and run steps 3 to 6. If the change is more than a typo, it needs Bella's approval again and a new `approved_by_bella` date.
+
+Changing the status line of an unpublished chapter: edit its `state` in `content/rights/chapters.json` and run `node tools/build-rights.mjs`.
+
+Withdrawing a chapter: delete its file from `content/rights/`, delete the folder `site/rights/<slug>/`, remove its sitemap line, and run steps 3 to 6. The tool refuses to build while the folder is still there, so a withdrawn chapter cannot go on being served by accident.

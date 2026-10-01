@@ -20,12 +20,12 @@
 if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.className+=" js";}
 })(document.documentElement);
 </script>
-<link rel="stylesheet" href="assets/tokens.css?v=20260919">
-<link rel="stylesheet" href="assets/site.css?v=20260919">
+<link rel="stylesheet" href="assets/tokens.css?v=20261001">
+<link rel="stylesheet" href="assets/site.css?v=20261001">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<script defer src="assets/site.js?v=20260919"></script>
+<script defer src="assets/site.js?v=20261001"></script>
 </head>
 <body>
 <!-- nav:start -->
@@ -95,13 +95,13 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
     <div class="wrap">
       <div class="ledger-head">
         <h2 id="doors-h">Three doors</h2>
-        <p class="ledger-note">The number beside each door will say how much is behind it. Nothing is published behind any of them yet, so each one says so instead.</p>
+        <p class="ledger-note">The number beside each door says how much is behind it today. Where nothing is published yet, the door says so.</p>
       </div>
       <ul class="rows">
         <li class="row door" data-rv>
-          <span class="count">none<small>yet</small></span>
+          <span class="count">249<small>states</small></span>
           <h3><a href="atlas/">Atlas</a></h3>
-          <p class="desc">A world map with a card for every country. Every value will carry its year, its type and its source. No score, no ranking, no colour for modelled prevalence, and no data is never shown as zero.</p>
+          <p class="desc">A world map with a card for every country, and the same numbers as a plain table. Every value carries its year, its type and its source. No score, no ranking, no colour for modelled prevalence, and no data is never shown as zero.</p>
           <span class="arrow" aria-hidden="true">&rarr;</span>
         </li>
         <li class="row door" data-rv>
@@ -111,27 +111,27 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
           <span class="arrow" aria-hidden="true">&rarr;</span>
         </li>
         <li class="row door" data-rv>
-          <span class="count">none<small>yet</small></span>
+          <span class="count">9<small>chapters</small></span>
           <h3><a href="rights/">Your rights</a></h3>
-          <p class="desc">What your country promised you, in plain language: the treaty, the article, the line it comes from, where it tends to fail, and what you can ask for.</p>
+          <p class="desc">What your country promised you, in plain language: the treaty, the article, the line it comes from, where it tends to fail, and what you can ask for. A chapter is linked once it has been checked and approved; the contents page says where each one stands.</p>
           <span class="arrow" aria-hidden="true">&rarr;</span>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- BAND · the Atlas, and the key it will be read with · card -->
+  <!-- BAND · the Atlas, and the key it is read with · card -->
   <section class="band band-card" id="atlas" aria-labelledby="atlas-h">
     <div class="wrap">
       <div class="ledger-head">
         <h2 id="atlas-h">From the Atlas</h2>
-        <p class="ledger-note">There is no map on this page yet, and no country card, because there is no checked data to put in one. What is settled is the key the map will be read with, so it is printed here first.</p>
+        <p class="ledger-note">The map lives on the Atlas page, with a card for every country. Printed here is the key it is read with, because the key is the part worth knowing before you look.</p>
       </div>
       <div class="atlas">
         <div class="atlas-fig" data-rv>
           <table class="legend">
-            <caption>The key, before there is a map</caption>
-            <thead><tr><th scope="col">Band</th><th scope="col">Colour</th><th scope="col">What it will mean</th></tr></thead>
+            <caption>The key the map is read with</caption>
+            <thead><tr><th scope="col">Band</th><th scope="col">Colour</th><th scope="col">What it means</th></tr></thead>
             <tbody>
               <tr class="b1"><td>band 1 of 5</td><td><span class="sw sw-1"></span></td><td>the lowest values on the layer</td></tr>
               <tr class="b2"><td>band 2 of 5</td><td><span class="sw sw-2"></span></td><td>lower than the middle</td></tr>
@@ -141,14 +141,14 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
               <tr class="nd"><td>no data</td><td><span class="sw sw-nodata"></span></td><td>a hatch, never a colour, and never zero</td></tr>
             </tbody>
           </table>
-          <p class="legend-foot">The rule under each band thickens with the band, so the order survives without colour. No band carries a number here: the thresholds are published with the data they describe, never before it. No colour for modelled prevalence.</p>
+          <p class="legend-foot">The rule under each band thickens with the band, so the order survives without colour. No band carries a number here: each layer prints its own thresholds beside the map, with the data they describe. No colour for modelled prevalence.</p>
         </div>
 
         <div class="state" data-rv>
-          <p class="state-mark">Not published yet</p>
-          <h3>The Atlas is being built. Every value will carry its year, its type and its source.</h3>
-          <p>Ten indicators, one card for each country, and a plain table carrying the same numbers for anyone who would rather not use a map. Until each value has been read back against the source that published it, this page shows no map and no country.</p>
-          <p class="src">How each value will be checked before it appears: <a href="methodology/">Methodology</a></p>
+          <p class="state-mark">Published</p>
+          <h3>The Atlas is built. Every value carries its year, its type and its source.</h3>
+          <p>Ten indicators, one card for each country, and a plain table carrying the same numbers for anyone who would rather not use a map. A country with no value reads "no data", and a value older than its limit says so.</p>
+          <p class="src"><a href="atlas/">Open the Atlas</a> · How each value was checked, and what the checking caught: <a href="methodology/">Methodology</a></p>
         </div>
       </div>
     </div>
@@ -214,7 +214,7 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
       Interview profiles: all rights reserved
     </p>
     <p class="legal">Information, not medical or legal advice · this site is not a crisis service · help lines are on every page</p>
-    <p class="legal">Well to Learn · version 20260919 · no cookies, no analytics, no third-party requests</p>
+    <p class="legal">Well to Learn · version 20261001 · no cookies, no analytics, no third-party requests</p>
   </div>
 </footer>
 <!-- footer:end -->

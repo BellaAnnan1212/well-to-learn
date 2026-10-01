@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology · {{site.siteName}}</title>
+<meta name="description" content="How every number on this site was got and checked: the ten indicators, what each one is and is not, what was left out and why, the sources and their terms, and the rules the site keeps.">
+<meta property="og:title" content="Methodology · {{site.siteName}}">
+<meta property="og:description" content="How every number on this site was got and checked, what was left out and why, and the rules the site keeps.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{site.siteName}}">
+<meta property="og:image" content="https://bellaannan1212.github.io/well-to-learn/og-image.png">
+<meta property="og:image:alt" content="Well to Learn, on a dark green ground: You cannot learn if you are not well.">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+(function(d){d.className+=" has-js";
+if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.className+=" js";}
+})(document.documentElement);
+</script>
+<link rel="stylesheet" href="{{root}}assets/tokens.css?v={{version}}">
+<link rel="stylesheet" href="{{root}}assets/site.css?v={{version}}">
+<link rel="icon" href="{{root}}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{{root}}favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png">
+<script defer src="{{root}}assets/site.js?v={{version}}"></script>
+</head>
+<body>
+<!-- nav:start -->
+<!-- nav:end -->
+
+<main id="main">
+
+  <section class="band band-green page-title" aria-labelledby="h1">
+    <div class="wrap">
+      <p class="eyebrow">The register · Methodology</p>
+      <h1 id="h1">Methodology</h1>
+      <p class="lede">A site that asks you to trust its numbers owes you three things: the rules it keeps, how each number got here, and what it found when it checked itself. This page is all three, and every count on it is taken from the same files the Atlas reads.</p>
+    </div>
+  </section>
+
+  <section class="band band-card" aria-labelledby="rules-h">
+    <div class="wrap">
+      <div class="ledger-head">
+        <h2 id="rules-h">The rules</h2>
+        <p class="ledger-note">Each rule governs what may appear on this site. The rest of the page is the evidence that they were kept, and where they were nearly not.</p>
+      </div>
+      <ul class="rows">
+        <li class="row" data-rv>
+          <span class="stamp">Numbers</span>
+          <p class="line">No ranking and no composite score. Countries are never ordered best to worst, and no indicators are ever added together into a single figure. A map layer shows one indicator at a time, and nothing else.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Stamps</span>
+          <p class="line">Every value wears one of four stamps: measured, modelled, self-reported or legal. Measured means somebody counted it. Modelled means a model estimated it. Self-reported means a government answered a questionnaire about itself. Legal means it is the status of a law or a treaty, not a measurement.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Years</span>
+          <p class="line">Every value carries its own year, the year that value refers to, not the year the file was downloaded. Two countries on the same map may be showing different years, and each says which.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Missing</span>
+          <p class="line">Missing is written "no data", never zero, and never quietly left out. On a map it is a hatch, which is a pattern and not a colour, so it can never be read as a low value or a high one.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Colour</span>
+          <p class="line">No colour for modelled prevalence. How many young people in a country live with a mental health condition is a modelled estimate almost everywhere, and colouring a map by it would make a model look like a count. The modelled out-of-school rate may be coloured, and is tagged as modelled wherever it appears.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Anonymity</span>
+          <p class="line">Interviewees are shown as an age band and a UN sub-region, never a town, a school or a date of birth. The age bands are 12 to 14, 15 to 17 and 18 to 19. A country appears only when that person said it could. Names are pseudonyms, and a drawing is generated from a seed and never chosen to resemble anyone.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Consent</span>
+          <p class="line">Consent is recorded by month, never by day. Fifteen exact interview dates read together are an itinerary, so a profile says the month it was given and nothing finer. Consent is given knowing the page will be public and anonymous, and can be withdrawn.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Safety</span>
+          <p class="line">Safe-messaging rules apply to every page: no methods, no locations, no rankings by suicide rate, no language that makes distress sound like a wave or a plague, and help lines beside anything that might land close to home. A content note goes before a story that needs one.</p>
+        </li>
+        <li class="row" data-rv>
+          <span class="stamp">Sources</span>
+          <p class="line">Every number names the source that published it, with the date that source was read. A value that cannot be read back against its own source is not published, and a value that turns out to be wrong is corrected or removed, not explained away.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band-wash" aria-labelledby="ind-h">
+    <div class="wrap">
+      <div class="ledger-head">
+        <h2 id="ind-h">The {{indicator_word}} indicators</h2>
+        <p class="ledger-note">Counted from the Atlas data built {{built}}. The table lists {{state_count}} states, every one in ISO 3166-1, so "states with a value" is always out of {{state_count}}.</p>
+      </div>
+      <div class="table-scroll" tabindex="0" role="region" aria-labelledby="ind-h">
+        <table class="table">
+          <caption>What each indicator is, who published it, how many states have a value, the years those values refer to, and how many are older than the limit this site set for that indicator.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Indicator</th>
+              <th scope="col">Kind</th>
+              <th scope="col">Published by</th>
+              <th scope="col" class="n">States with a value</th>
+              <th scope="col">Years</th>
+              <th scope="col">Age limit</th>
+              <th scope="col" class="n">Past the limit</th>
+            </tr>
+          </thead>
+          <tbody>
+{{#rows}}            <tr><th scope="row">{{label}} <span class="year">{{on_map}}</span></th><td>{{kind}}</td><td>{{publisher}}</td><td class="n">{{have}}</td><td>{{years}}</td><td>{{limit}}</td><td class="n">{{stale}}</td></tr>
+{{/rows}}          </tbody>
+        </table>
+      </div>
+
+      <div class="prose" style="margin-top:var(--wtl-space-6)">
+        <h3>What each one is, and is not</h3>
+        <ul>
+{{#rows}}          <li><strong>{{label}}.</strong> {{note}}</li>
+{{/rows}}        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-card" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="prose">
+        <h2 id="how-h">How a number gets onto the map</h2>
+        <ol>
+          <li><strong>It is read from the publisher.</strong> Each value is fetched from the agency that published it: an open data service where one exists, the published table or page where it does not. The file that was read is kept, with its date, so the same build can be run again from the saved copy.</li>
+          <li><strong>It is matched to a country by code, never by guess.</strong> Sources spell country names differently. Each name is matched to an ISO 3166-1 code through a list of spellings that real sources have actually printed. A name that does not match stops the build and is printed by name. In the current build there are no failed matches.</li>
+          <li><strong>What is left out is named.</strong> {{ignored_count}} names are deliberately not matched, and here they are with the reason for each:
+            <ul>
+{{#ignored}}              <li>{{name}}, in the source "{{source}}" ({{rows}} {{row_word}}): {{why}}.</li>
+{{/ignored}}            </ul>
+            A list of things to skip is the most dangerous file in a build like this, because when it is wrong nothing fails: a country simply is not there. That happened once here, and it is described below.</li>
+          <li><strong>A gap stays a gap.</strong> A country with no value is stored as nothing and drawn as "no data". It is never turned into a zero and never counted as one.{{#has_zeros}} Where a source really did report a zero, the zero is kept and marked as reported: {{zeros}}.{{/has_zeros}}</li>
+          <li><strong>An old number says it is old.</strong> Each indicator has an age limit, in the table above. A value older than its limit is still shown, and is marked "stale" with its age on the country card and in the table. {{stale_total}} values carry that mark in the current build. A stale value is not a wrong value. It is an old one, and you are told which.</li>
+          <li><strong>A different kind of number says so.</strong> In the out-of-school layer, {{nat_est}} values are a country's own national estimate and not UNESCO's, and each prints "national estimate" beside it. In the corporal punishment layer, {{unconfirmed}} entries are ones the source itself puts in square brackets, and each prints "unconfirmed".</li>
+        </ol>
+
+        <h2>What the last check found</h2>
+        <p>On {{spot_date}} a reviewer, working from the instruction to treat every value as wrong until the source said otherwise, opened the publisher's own page for {{spot_country_count}} countries chosen to span rich and poor: {{spot_countries}}. It compared {{spot_rows}} values on this site against what the source showed that day.</p>
+        <dl class="voice-dates">
+          <dt>Confirmed</dt><dd>{{spot_confirmed}}</dd>
+          <dt>Refuted</dt><dd>{{spot_refuted}}</dd>
+          <dt>Could not be verified</dt><dd>{{spot_cannot}}</dd>
+        </dl>
+{{#has_cannot}}        <p>The {{spot_cannot}} that could not be verified are all one indicator, {{spot_cannot_labels}}, which has no values on this site yet, so there was nothing to compare. They are counted here and not left out, because a check that reports only its passes is not a check.</p>
+{{/has_cannot}}        <p class="note">The full sheet, row by row, is in the site's repository under data/verification. {{spot_country_count}} countries is a sample, not a census: it shows the pipeline reads its sources correctly, and it cannot show that every one of the other values is right.</p>
+
+        <h2>What the checking caught</h2>
+        <p>Four things looked finished and were not. They are listed because a method that has never caught anything has not been tested.</p>
+        <ul>
+          <li><strong>The age limit was published and not enforced.</strong> Each indicator declared how old a value could be, and nothing checked it, so a value from 2015 was drawn exactly like one from 2021. Every value is now compared with its limit on every build, which is where the "stale" mark comes from.</li>
+          <li><strong>A label was read and thrown away.</strong> UNESCO marks which values are a country's own estimate. The build read that mark and dropped it, so two different kinds of number were drawn identically on the layer that is on by default. The mark is now carried through and printed.</li>
+          <li><strong>Two real countries were on the skip list.</strong> Cook Islands and Niue were listed as names to ignore, on the assumption that they were not ISO states. They are. Their treaty rows were being dropped, so their cards would have said "not bound" by a treaty the UN lists them as parties to. The build now refuses to run if a real ISO state is on the skip list.</li>
+          <li><strong>A working name was sitting in a public file.</strong> The profile builder copied each interviewee's working pseudonym into a data file that would have been published, although no page displayed it. The field is no longer written, and the builder refuses a withheld profile that carries one.</li>
+        </ul>
+
+        <h2>What the Atlas cannot tell you</h2>
+        <ul>
+          <li><strong>It cannot rank countries.</strong> The indicators are different kinds of number, from different years, with different gaps. Putting them in one order would claim a precision none of them has.</li>
+          <li><strong>Most of its numbers are estimates.</strong> The table above says which. A modelled rate is a model's best account of a country, not a count of people.</li>
+          <li><strong>A law is not a practice.</strong> The corporal punishment and treaty layers record what is written in law and in the UN's treaty record. They say nothing about what happens in any classroom.</li>
+          <li><strong>No profile is not the same as no problem.</strong> A country that Education under Attack does not profile has not been shown to be safe. It may be a country nobody is counting in.</li>
+          <li><strong>The map is smaller than the table.</strong> The map draws the countries large enough to have a shape at its scale. The table lists all {{state_count}} states, so a small state missing from the map is still in the table.</li>
+          <li><strong>The lines on the map are not a statement about any border.</strong> They are drawn for legibility from a public-domain base map.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-wash" aria-labelledby="src-h">
+    <div class="wrap">
+      <div class="prose">
+        <h2 id="src-h">Sources and their terms</h2>
+        <p>Each source keeps its own terms, and this site keeps to the strictest of them: no advertising, no money asked for, and the derived data file carries the same share-alike and non-commercial conditions as the sources it is built from.</p>
+        <ul class="src-list">
+{{#sources}}          <li><a href="{{url}}" rel="noopener">{{name}}</a><span class="note">{{publisher}}. Terms: {{licence}}. {{read}}</span><span class="note">{{attribution}}</span>{{#may_not}}<span class="note">Limit kept here: {{may_not}}</span>{{/may_not}}</li>
+{{/sources}}        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-card" aria-labelledby="words-h">
+    <div class="wrap">
+      <div class="prose">
+        <h2 id="words-h">How the words are checked</h2>
+        <h3>Your rights</h3>
+        <p>Every legal claim names its instrument and article, quotes the official text in under 15 words, and links to it. Before a chapter is published a reviewer opens each source and starts from the assumption that the claim is wrong. The mistake that checking finds most often is not a misquotation. It is a chapter stating a UN committee's reading of a treaty as if it were the treaty, so each chapter now says which lines are treaty text and which are a committee's reading. A build step also refuses any chapter containing an over-long quotation, a banned word or a claim still marked unverified.</p>
+        <p>Of the {{chapters_total}} chapters, {{chapters_published_word}} published so far. The others are drafted and checked, and stay unlinked until Bella has approved each one: <a href="{{root}}rights/">Your rights</a>.</p>
+        <h3>Voices</h3>
+        <p>A profile is built only when four dates exist: the month consent was given, the day it was checked line by line for any detail that could identify the person, the day it was checked against safe-messaging rules, and the day Bella approved it. Any one missing and the builder refuses the whole run. A quotation must be the person's own words or be labelled as a paraphrase, runs to 40 words at most, and may not contain a year.</p>
+{{#profiles_none}}        <p>No profile is published yet. The fifteen drafts stay private until each has all four dates.</p>
+{{/profiles_none}}{{#profiles_some}}        <p>{{profiles}} profiles are published so far: <a href="{{root}}voices/">Voices</a>.</p>
+{{/profiles_some}}
+        <h2>Where AI helped</h2>
+        <p>Bella used an AI assistant (Claude) as a tool throughout. It wrote the code that fetches the data and builds these pages, drafted explanatory text including this page, and ran the checking passes described above. It did not conduct the interviews, and it did not decide what this site says. The fuller statement is on <a href="{{root}}about/">About</a>.</p>
+
+        <h2>If something is wrong</h2>
+        <p>Say so, and it gets fixed or taken down: <a href="{{root}}{{site.correct_this.href}}">{{site.correct_this.label}}</a>.</p>
+        <p class="note">Nothing on this page is medical or legal advice.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- crisis:start -->
+<!-- crisis:end -->
+<!-- footer:start -->
+<!-- footer:end -->
+</body>
+</html>

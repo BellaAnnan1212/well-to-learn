@@ -4,8 +4,9 @@
 // LICENCE, and the reason this fetcher is deliberately narrow: no licence is published on the table
 // or its host page (checked by the storm's critic on 2026-09-04 and unchanged). The site therefore
 // republishes ONE FACT PER COUNTRY with attribution and a link, and never the table, never the
-// footnotes, never the totals as a dataset. Permission has been asked for in writing: until it is
-// granted, this is the most the site takes.
+// footnotes, never the totals as a dataset. No permission request is on record (an earlier version
+// of this comment said one had been sent; nothing in the project shows that), so this is the most
+// the site takes.
 //
 // Two things the parser must not get wrong:
 //   1. A name can wrap onto a second line ("Bosnia and" / "Herzegovina77"). The continuation line

@@ -1,6 +1,6 @@
 # Atlas data coverage
 
-Written by `node tools/atlas/build-data.mjs` on 2026-09-19 (offline rebuild from the cache). Every number below is counted from the build that wrote `site/data/atlas.json` in the same run, never typed by hand.
+Written by `node tools/atlas/build-data.mjs` on 2026-10-01 (offline rebuild from the cache). Every number below is counted from the build that wrote `site/data/atlas.json` in the same run, never typed by hand.
 
 States in the table: **249** (every ISO 3166-1 state, so nothing is dropped for having no shape on the map).
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// test.mjs: exercises stamp.mjs, check.mjs, and build-voices.mjs against temporary copies under os.tmpdir().
+// test.mjs: exercises stamp.mjs, check.mjs, build-voices.mjs, build-rights.mjs and build-methodology.mjs against temporary copies under os.tmpdir().
 // Never touches site/ in the repo. Exit 0 when every assertion holds.
 //
 //   node tools/test.mjs
@@ -337,6 +337,132 @@ try {
   fs.writeFileSync(path.join(site, '404.html'), nf);
   r = run('check.mjs', ['--root', A]);
   assert(r.code === 0, `check is clean again once 404.html is restored (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
+
+  // ---------- build-rights ----------
+  // The fixture chapter is invented test text about an invented instrument. It is never published.
+  console.log('\nbuild-rights: valid build');
+  const C = path.join(tmp, 'c');
+  copyTools(C);
+  const csite = path.join(C, 'site');
+  const ccontent = path.join(C, 'content', 'rights');
+  write(path.join(csite, 'index.html'), page('Home', 0));
+  for (const dir of ['atlas', 'voices', 'act', 'about', 'methodology']) write(path.join(csite, dir, 'index.html'), page(dir, 1));
+  write(path.join(csite, 'assets', 'site.css'), 'body{}\n');
+  write(path.join(csite, 'assets', 'tokens.css'), ':root{}\n');
+  write(path.join(csite, 'assets', 'site.js'), '\n');
+  for (const f of ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png']) write(path.join(csite, f), '');
+  write(path.join(csite, 'sitemap.xml'), sitemap(['', 'atlas/', 'voices/', 'act/', 'about/', 'methodology/', 'rights/', 'rights/fixture-one/']));
+  const manifest = [
+    { n: 1, slug: 'fixture-one', title: 'Fixture one', state: 'unused while published' },
+    { n: 2, slug: 'fixture-two', title: 'Fixture two', state: 'checked; waiting for approval' },
+  ];
+  write(path.join(ccontent, 'chapters.json'), `${JSON.stringify(manifest, null, 2)}\n`);
+  const chapter = (over = {}) => {
+    const o = {
+      status: 'approved', approved: 'approved_by_bella: 2026-01-02\n', cleared: 'critic_cleared: 2026-01-01\n', title: 'Fixture one',
+      quote: '"an exact fixture phrase" ([Fixture Treaty](https://example.test/treaty.pdf)).', means: 'Plain words & an ampersand, with **bold** and a [link](https://example.test/gc?a=1&b=2).', extra: '', unverified: 'unverified: []', ...over,
+    };
+    return `---\ntype: rights-chapter\nproject: well-to-learn\nchapter: 1\ntitle: ${o.title}\nstatus: ${o.status}\n${o.approved}${o.cleared}drafted: 2026-01-01\nsources:\n  - Fixture Treaty: https://example.test/treaty.pdf\n${o.unverified}\n---\n\n# 1. ${o.title}\n\nThe opening paragraph of the fixture.\n\n## A fixture block\n\n**Claim.** The fixture claims one thing.\n**Instrument.** Fixture Treaty, article 1.\n**Quote.** ${o.quote}\n**What it means for you.** ${o.means}\n**Where it often fails.** It fails in fixtures.\n**What you can ask for.** Ask for a fixture.\n${o.extra}\n## What this chapter does not say\n\n- **A fixture is not a treaty.** It binds nobody.\n`;
+  };
+  const chFile = path.join(ccontent, 'ch-01-fixture-one.md');
+  write(chFile, chapter());
+  run('stamp.mjs', ['--root', C]);
+  r = run('build-rights.mjs', ['--root', C]);
+  assert(r.code === 0 && /1 of 2 chapter\(s\) published/.test(r.out), `build-rights builds one approved chapter of two (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
+  const chPage = path.join(csite, 'rights', 'fixture-one', 'index.html');
+  const chHtml = fs.existsSync(chPage) ? fs.readFileSync(chPage, 'utf8') : '';
+  const contentsHtml = fs.readFileSync(path.join(csite, 'rights', 'index.html'), 'utf8');
+  assert((chHtml.match(/class="kyr-row /g) || []).length === 6, 'the chapter page carries all six labelled lines of the block');
+  assert(chHtml.includes('<a href="https://example.test/treaty.pdf" rel="noopener">Fixture Treaty</a>'), 'a source link is drawn as a link, with rel="noopener"');
+  assert(chHtml.includes('Plain words &amp; an ampersand') && chHtml.includes('<strong>bold</strong>') && chHtml.includes('gc?a=1&amp;b=2'), 'text and URLs are HTML-escaped, bold is drawn');
+  assert(chHtml.includes('<time datetime="2026-01-02">') && chHtml.includes('<time datetime="2026-01-01">'), 'the page prints the approval date and the check date');
+  assert(chHtml.includes('<strong>A fixture is not a treaty.</strong>'), 'the "does not say" list is carried onto the page');
+  assert(chHtml.includes('class="crisis"') && !/\{\{[^}]*\}\}/.test(chHtml), 'the chapter page is stamped with the help block and has no unresolved placeholders');
+  assert(contentsHtml.includes('<a class="ch-title" href="fixture-one/">Fixture one</a>'), 'the contents list links the published chapter');
+  assert(contentsHtml.includes('<span class="ch-title">Fixture two</span><span class="ch-state">checked; waiting for approval</span>') && !contentsHtml.includes('fixture-two/'), 'an unpublished chapter prints its status line and is not a link');
+  assert(contentsHtml.includes('1 of 2 published'), 'the contents page counts what is published');
+  const rsnap = snapshot(csite);
+  r = run('build-rights.mjs', ['--root', C]);
+  assert(r.code === 0 && sameSnapshot(rsnap, snapshot(csite)), 'build-rights is deterministic (second run, no diff)');
+  r = run('check.mjs', ['--root', C]);
+  assert(r.code === 0, `check passes on the generated chapter and contents pages (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
+
+  console.log('\nbuild-rights: refusal');
+  const refuses = (label, over, needle) => {
+    write(chFile, chapter(over));
+    const before = snapshot(csite);
+    const rr = run('build-rights.mjs', ['--root', C]);
+    assert(rr.code === 1 && rr.out.includes(needle) && sameSnapshot(before, snapshot(csite)), `refuses ${label}, names it, writes nothing`);
+  };
+  refuses('a chapter that is not approved', { status: 'draft' }, 'not "approved"');
+  refuses('a chapter with no approval date', { approved: '' }, 'approved_by_bella');
+  refuses('a chapter with no check date', { cleared: '' }, 'critic_cleared');
+  refuses('a title that disagrees with chapters.json', { title: 'Another title' }, 'chapters.json');
+  refuses('a Quote line with no link', { quote: '"an exact fixture phrase" (Fixture Treaty).' }, 'no link');
+  refuses('a quote of 15 words or more', { quote: '"one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen" ([T](https://example.test/t)).' }, 'limit is under 15');
+  refuses('an em dash', { means: 'A sentence — with a dash.' }, 'en or em dash');
+  refuses('a banned phrase', { means: 'There is an epidemic of fixtures.' }, 'banned phrase');
+  refuses('a link that is not https', { means: 'See [this](http://example.test/x).' }, 'not https');
+  refuses('raw HTML', { means: 'A <b>tag</b>.' }, 'raw "<"');
+  refuses('a table, which it cannot draw', { extra: '\n| a | b |\n|---|---|\n' }, 'does not draw');
+  refuses('a deeper heading, which it cannot draw', { extra: '\n### Deeper\n' }, 'does not draw');
+  refuses('an [UNVERIFIED] marker', { means: 'A claim [UNVERIFIED: could not open https://example.test/x].' }, 'UNVERIFIED');
+  refuses('a non-empty unverified list', { unverified: 'unverified:\n  - "one open item"' }, 'unverified');
+  write(chFile, chapter());
+  write(path.join(csite, 'rights', 'withdrawn', 'index.html'), page('Withdrawn', 2));
+  r = run('build-rights.mjs', ['--root', C]);
+  assert(r.code === 1 && r.out.includes('site/rights/withdrawn/'), 'refuses while a folder for an unpublished chapter is still being served');
+  fs.rmSync(path.join(csite, 'rights', 'withdrawn'), { recursive: true });
+  r = run('build-rights.mjs', ['--root', C]);
+  assert(r.code === 0, `builds again once the fixture is restored (got ${r.code})`);
+
+  // ---------- build-methodology ----------
+  // Invented fixture data: three states, two indicators. The page must print what it COUNTS.
+  console.log('\nbuild-methodology: counts come from the data');
+  const field = (o) => ({ value: null, year: null, source: 'fx', ...o });
+  const fxAtlas = {
+    built: '2026-01-03',
+    countries: {
+      AAA: { iso3: 'AAA', name: 'Aland', indicators: { rate: field({ value: 1.5, year: 2010, stale: true, age: 16 }), law: field({ value: 'YES' }) } },
+      BBB: { iso3: 'BBB', name: 'Bland', indicators: { rate: field({ value: 0, year: 2020, reported_zero: true, qualifier: 'NAT_EST' }), law: field({ value: 'NO', confirmed: false }) } },
+      CCC: { iso3: 'CCC', name: 'Cland', indicators: { rate: field({ value: null }) } },
+    },
+  };
+  const fxIndicators = { indicators: [
+    { id: 'rate', label: 'Fixture rate', short: 'Rate', kind: 'modelled', source: 'fx', layer: true, max_age: 5, note: 'A fixture note.' },
+    { id: 'law', label: 'Fixture law', short: 'Law', kind: 'legal', source: 'fx', layer: false, max_age: null, note: 'Another fixture note.' },
+  ] };
+  const fxSources = { sources: [{ id: 'fx', name: 'Fixture source', url: 'https://example.test/src', publisher: 'Fixture Office', licence: 'CC BY 4.0', attribution: 'Fixture Office, read 2026-01-03.', may_not: null, extracted: '2026-01-03' }] };
+  const fxCoverage = (failed) => `# Atlas data coverage\n\n## Failed joins\n\n${failed}\n\n## Deliberately ignored\n\n| Source | Name | Rows |\n|---|---|---|\n| fx | Nowhere Union | 2 |\n\n## Sanity findings\n\nNone.\n`;
+  write(path.join(csite, 'data', 'atlas.json'), JSON.stringify(fxAtlas));
+  write(path.join(csite, 'data', 'indicators.json'), JSON.stringify(fxIndicators));
+  write(path.join(csite, 'data', 'sources.json'), JSON.stringify(fxSources));
+  write(path.join(C, 'docs', 'coverage.md'), fxCoverage('None. Every name resolved.'));
+  write(path.join(C, 'data', 'verification', 'spotcheck-2026-01-04.csv'), 'country,indicator,site value,source value,source url,verdict,checked by,date\nAAA (Aland),rate,1.5,1.5,https://example.test/a,CONFIRMED,Critic,2026-01-04\n"BBB (Bland)",law,NO,,"https://example.test/b,c",CANNOT VERIFY,Critic,2026-01-04\n');
+  r = run('build-methodology.mjs', ['--root', C]);
+  assert(r.code === 0, `build-methodology builds from fixture data (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
+  const mHtml = fs.readFileSync(path.join(csite, 'methodology', 'index.html'), 'utf8');
+  assert(mHtml.includes('<td class="n">2</td><td>2010 to 2020</td><td>5 years</td><td class="n">1</td>'), 'the indicator row prints states with a value, the year range, the limit and the stale count it counted');
+  assert(mHtml.includes('<td class="n">2</td><td>no year: a legal or yes-or-no fact</td><td>none</td><td class="n">not applicable</td>'), 'a legal indicator prints no year and no stale count');
+  assert(mHtml.includes('1 values carry that mark') && mHtml.includes('1 values are a country') && mHtml.includes('1 entries are ones'), 'stale, national-estimate and unconfirmed totals are counted, not typed');
+  assert(mHtml.includes('Bland (Rate)'), 'a reported zero is named with its country');
+  assert(mHtml.includes('Nowhere Union, in the source "fx" (2 rows): it has no ISO 3166-1 code.'), 'the ignore list is read out of coverage.md and printed by name');
+  assert(mHtml.includes('4 January 2026') && mHtml.includes('<dt>Confirmed</dt><dd>1</dd>') && mHtml.includes('<dt>Could not be verified</dt><dd>1</dd>'), 'the newest spot check is counted from its CSV, with its date');
+  assert(mHtml.includes('two countries') && mHtml.includes('Aland and Bland'), 'the spot-check countries are listed from the CSV');
+  assert(mHtml.includes('Of the 2 chapters, one is published so far') && mHtml.includes('No profile is published yet'), 'published chapters and profiles are counted from the repository');
+  assert(mHtml.includes('class="crisis"') && !/\{\{[^}]*\}\}/.test(mHtml), 'the page is stamped and has no unresolved placeholders');
+  const msnap = snapshot(csite);
+  r = run('build-methodology.mjs', ['--root', C]);
+  assert(r.code === 0 && sameSnapshot(msnap, snapshot(csite)), 'build-methodology is deterministic (second run, no diff)');
+  r = run('check.mjs', ['--root', C]);
+  assert(r.code === 0, `check passes on the generated methodology page (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
+  write(path.join(C, 'docs', 'coverage.md'), fxCoverage('| Source | Name |\n|---|---|\n| fx | Atlantis |'));
+  r = run('build-methodology.mjs', ['--root', C]);
+  assert(r.code === 1 && r.out.includes('Failed joins') && sameSnapshot(msnap, snapshot(csite)), 'refuses to claim "no failed joins" when coverage.md lists one, and writes nothing');
+  write(path.join(C, 'docs', 'coverage.md'), fxCoverage('None.'));
+  fs.rmSync(path.join(C, 'data', 'verification'), { recursive: true });
+  r = run('build-methodology.mjs', ['--root', C]);
+  assert(r.code === 1 && r.out.includes('spotcheck'), 'refuses when there is no spot-check file to count from');
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
 }

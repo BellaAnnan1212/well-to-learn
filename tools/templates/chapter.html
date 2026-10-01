@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} · Your rights · {{site.siteName}}</title>
+<meta name="description" content="{{description}}">
+<meta property="og:title" content="{{title}} · Your rights · {{site.siteName}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="{{site.siteName}}">
+<meta property="og:image" content="https://bellaannan1212.github.io/well-to-learn/og-image.png">
+<meta property="og:image:alt" content="Well to Learn, on a dark green ground: You cannot learn if you are not well.">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+(function(d){d.className+=" has-js";
+if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.className+=" js";}
+})(document.documentElement);
+</script>
+<link rel="stylesheet" href="{{root}}assets/tokens.css?v={{version}}">
+<link rel="stylesheet" href="{{root}}assets/site.css?v={{version}}">
+<link rel="icon" href="{{root}}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{{root}}favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="{{root}}apple-touch-icon.png">
+<script defer src="{{root}}assets/site.js?v={{version}}"></script>
+</head>
+<body class="page-chapter">
+<!-- nav:start -->
+<!-- nav:end -->
+<main id="main">
+
+  <!-- a chapter opens the way every page of the register opens: the band, the rule, the title -->
+  <section class="band band-green page-title" aria-labelledby="h1">
+    <div class="wrap">
+      <p class="eyebrow"><a href="{{root}}rights/">Your rights</a> · chapter {{n}} of {{total}}</p>
+      <h1 id="h1">{{title}}</h1>
+      <p class="lede">{{{lede}}}</p>
+    </div>
+  </section>
+
+  <!-- long reading sits on the card ground. Each right is one entry in the register: six labelled lines. -->
+  <section class="band band-card" aria-label="The chapter">
+    <div class="wrap chapter">
+{{#has_intro_rest}}      <div class="entry-body">
+        {{{intro_rest}}}
+      </div>
+{{/has_intro_rest}}
+{{{sections}}}
+    </div>
+  </section>
+
+  <!-- what the chapter does not say, on the pale wash: the limits are part of the claim -->
+  <section class="band band-wash" aria-labelledby="not-said-h">
+    <div class="wrap">
+      <div class="prose">
+        <h2 id="not-said-h">What this chapter does not say</h2>
+        <ul>
+{{#not_said}}          <li>{{{.}}}</li>
+{{/not_said}}        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-card" aria-labelledby="checked-h">
+    <div class="wrap">
+      <div class="prose">
+        <h2 id="checked-h">How this chapter was checked</h2>
+        <p>Every claim above was read back against the text it cites by a reviewer whose standing instruction is to treat the claim as wrong until the source says otherwise. Every quotation is the source's own words, under 15 words, and links to the text it came from.</p>
+        <dl class="voice-dates">
+          <dt>Every claim checked</dt><dd><time datetime="{{critic_cleared}}">{{critic_cleared}}</time></dd>
+          <dt>Approved by Bella</dt><dd><time datetime="{{approved_by_bella}}">{{approved_by_bella}}</time></dd>
+        </dl>
+        <h3>The texts this chapter was read against</h3>
+        <ul class="src-list">
+{{#sources}}          <li><a href="{{url}}" rel="noopener">{{name}}</a></li>
+{{/sources}}        </ul>
+        <p class="note">This is information, not legal advice. If a line here is wrong, <a href="{{root}}{{site.correct_this.href}}">{{site.correct_this.label}}</a>. Back to <a href="{{root}}rights/">all {{total}} chapters</a>, or see <a href="{{root}}methodology/">Methodology</a> for how the checking works.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+<!-- crisis:start -->
+<!-- crisis:end -->
+<!-- footer:start -->
+<!-- footer:end -->
+</body>
+</html>
