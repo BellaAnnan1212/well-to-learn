@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// test.mjs: exercises stamp.mjs, check.mjs, build-voices.mjs, build-rights.mjs and build-methodology.mjs against temporary copies under os.tmpdir().
+// test.mjs: exercises stamp.mjs, check.mjs, build-voices.mjs, import-profiles.mjs, build-rights.mjs and build-methodology.mjs against temporary copies under os.tmpdir().
 // Never touches site/ in the repo. Exit 0 when every assertion holds.
 //
 //   node tools/test.mjs
@@ -301,6 +301,94 @@ try {
   r = run('check.mjs', ['--root', A]);
   assert(r.code === 0, `check exits 0 on the site with generated voices (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
   assert(sameSnapshot(snapS, snapshot(site)), 'check never writes');
+
+  // ---------- import-profiles ----------
+  console.log('\nimport-profiles');
+  const mdDir = path.join(tmp, 'private-profiles');
+  const md = (over = {}) => {
+    const o = {
+      pseudonym: 'Marigold', display: 'Marigold', h1: 'Marigold · 15-17 · Eastern Africa · in school',
+      quote: '> "Nobody at school is trained for this." (verbatim)', date: '2026-08', verified: '2026-09-03', ...over,
+    };
+    return `---
+type: voice-profile
+id: p01
+slug: p01-marigold
+pseudonym: ${o.pseudonym}
+display_name: ${o.display}            # what the site prints
+age_band: 15-17
+region: Eastern Africa
+country: null
+show_country: no
+schooling_status: in school
+content_note: null
+sensitive: no
+avatar:
+  style: open-peeps
+  seed: p01-marigold
+  file: assets/avatars/p01.svg
+consent:
+  how: verbal, recorded in the intake note
+  date: ${o.date}                 # month only
+  public_anonymous_withdrawable: yes
+approved_by_bella: 2026-09-03
+verified_identifying_details: ${o.verified}
+verified_safe_messaging: ${o.verified}
+intake: somewhere/private/intake-01.md
+status: draft
+---
+
+# ${o.h1}
+
+<!-- a comment the page never prints -->
+
+## At a glance
+- Walks a long way to school.
+- Told a teacher she felt low.
+- Wants a quiet room.
+
+## In their words
+${o.quote}
+
+## What they want changed
+One trained adult per school whose job it is to listen.
+
+## How this profile was made
+Anonymised. Consent: verbal, August 2026.
+
+## Help, if this is close to home
+<!-- crisis-block -->
+`;
+  };
+  const importOut = path.join(tmp, 'private-out', 'profiles.json');
+  const tryImport = (over) => {
+    fs.rmSync(mdDir, { recursive: true, force: true });
+    fs.rmSync(importOut, { force: true });
+    write(path.join(mdDir, 'p01-marigold.md'), md(over));
+    write(path.join(mdDir, '_template.md'), 'not a profile\n');
+    return run('import-profiles.mjs', ['--from', mdDir, '--out', importOut]);
+  };
+  r = tryImport();
+  assert(r.code === 0 && fs.existsSync(importOut), `import-profiles writes one valid profile (got ${r.code})\n${r.code === 0 ? '' : r.out}`);
+  const imported = JSON.parse(fs.readFileSync(importOut, 'utf8'));
+  assert(imported.length === 1 && imported[0].key_points.length === 3 && imported[0].quotes[0].paraphrased === false, 'three points and one verbatim quote are read');
+  assert(imported[0].display_name === 'Marigold' && imported[0].avatar.file === 'p01.svg' && imported[0].show_country === false, 'trailing comments are stripped, the avatar file is the bare name, no becomes false');
+  assert(!JSON.stringify(imported).includes('intake-01') && !('intake' in imported[0]), 'the intake path never reaches the output');
+  r = tryImport({ h1: 'Marigold · 12-14 · Eastern Africa · in school' });
+  assert(r.code === 1 && r.out.includes('H1 is') && !fs.existsSync(importOut), 'refuses an H1 that disagrees with the frontmatter, and writes nothing');
+  r = tryImport({ quote: '> "Nobody at school is trained for this." (verbatim, about a teacher)' });
+  assert(r.code === 1 && r.out.includes('In their words'), 'refuses a quote line it cannot read instead of dropping it');
+  r = tryImport({ quote: '> "Nobody at school – nobody – is trained." (verbatim)' });
+  assert(r.code === 1 && r.out.includes('em or en dash'), 'refuses an en dash');
+  r = tryImport({ date: '2026-08-14' });
+  assert(r.code === 1 && r.out.includes('consent.date'), 'refuses a consent date that names a day');
+  r = tryImport({ verified: 'null' });
+  assert(r.code === 1 && r.out.includes('verified_safe_messaging'), 'refuses a profile whose critic dates are null');
+  r = tryImport({ pseudonym: 'withheld (by the review)', display: 'Name withheld', h1: 'Name withheld · 15-17 · Eastern Africa · in school' });
+  assert(r.code === 0 && JSON.parse(fs.readFileSync(importOut, 'utf8'))[0].pseudonym === 'Name withheld', 'a withheld profile carries its display name in the pseudonym field, never a working name');
+  write(path.join(mdDir, 'p01-marigold.md'), md());
+  r = run('import-profiles.mjs', ['--from', mdDir, '--out', path.join(REPO_ROOT, 'site', 'data', 'profiles.json')]);
+  assert(r.code === 1 && r.out.includes('public') && !fs.existsSync(path.join(REPO_ROOT, 'site', 'data', 'profiles.json')), 'refuses to write the consent-carrying file anywhere inside the repository');
 
   // ---------- 404.html: the one page written from the site root ----------
   // GitHub Pages serves it for any missing path, so relative URLs on it resolve against a directory

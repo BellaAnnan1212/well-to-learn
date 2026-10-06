@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{display_name}} · Voices · {{site.siteName}}</title>
+  <title>{{title_name}} · Voices · {{site.siteName}}</title>
   <meta name="description" content="{{display_name}}, {{age_band}}, {{region}}: one of the anonymous voices on {{site.siteName}}.">
-  <meta property="og:title" content="{{display_name}} · Voices · {{site.siteName}}">
+  <meta property="og:title" content="{{title_name}} · Voices · {{site.siteName}}">
   <meta property="og:description" content="{{display_name}}, {{age_band}}, {{region}}: one of the anonymous voices on {{site.siteName}}.">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="{{site.siteName}}">
@@ -40,7 +40,7 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
         <p class="meta">{{age_band}} · {{region}}{{#show_country}} · {{country}}{{/show_country}} · {{schooling_status}}</p>
         <span class="here">Here.</span>
       </div>
-      <p class="src">Anonymous by design. The name is a pseudonym and the drawing is not a likeness.</p>
+      <p class="src">Anonymous by design. {{#withheld}}The name is withheld{{/withheld}}{{^withheld}}The name is a pseudonym{{/withheld}} and the drawing is not a likeness.</p>
     </div>
   </section>
 
@@ -58,10 +58,13 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
 {{/key_points}}        </ul>
 
         <h2 id="words-heading">In their words</h2>
-{{#quotes}}        <blockquote>
-          <p>{{text}}</p>
-        </blockquote>
-        <p class="note">{{#paraphrased}}(paraphrased){{/paraphrased}}{{^paraphrased}}(verbatim){{/paraphrased}}</p>
+{{#quotes}}        <figure class="quote">
+{{#paraphrased}}          <figcaption class="note">(paraphrased) Close to their words, not exact:</figcaption>
+{{/paraphrased}}          <blockquote>
+            <p>{{text}}</p>
+          </blockquote>
+{{^paraphrased}}          <figcaption class="note">(verbatim)</figcaption>
+{{/paraphrased}}        </figure>
 {{/quotes}}
         <h2 id="change-heading">What they want changed</h2>
         <p>{{wants_changed}}</p>

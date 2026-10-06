@@ -296,6 +296,8 @@ kbd{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);border:1px soli
 .voice-kicker a{color:var(--accent)}
 .voice-row{display:grid;grid-template-columns:3.5rem 4.5rem minmax(0,1fr) auto;grid-template-areas:"idx avatar who here" "idx avatar meta here";column-gap:var(--wtl-space-5);row-gap:var(--wtl-space-2);align-items:start;border-top:var(--wtl-rule-head);border-top-color:var(--line);border-bottom:var(--wtl-rule-total);border-bottom-color:var(--line);padding-block:var(--wtl-space-5)}
 .voice-row .avatar{width:4rem;height:4rem}
+.prose figure.quote{margin:0}
+.voice-kicker a{display:inline-flex;align-items:center;min-height:1.5rem}
 .voice-name{grid-area:who;font-size:var(--wtl-size-4);max-width:none}
 .voice-facts{margin-top:var(--wtl-space-5);display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--wtl-space-4);row-gap:var(--wtl-space-2);max-width:var(--wtl-measure)}
 .voice-facts dt{font-family:var(--wtl-font-mono);font-size:var(--wtl-size-1);letter-spacing:var(--wtl-track-caps);text-transform:uppercase;color:var(--label);line-height:var(--wtl-lead-label);padding-top:.15rem}

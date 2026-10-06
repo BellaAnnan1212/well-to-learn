@@ -33,7 +33,7 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
     <div class="wrap">
       <p class="eyebrow">The register · Voices</p>
       <h1 id="h1">Voices</h1>
-      <p class="lede">{{count}} young people, interviewed by Bella, on school, their minds, and what they want changed. Every profile is anonymous: a pseudonym, an age band, a UN sub-region, a schooling status, and a drawing that is not a likeness.</p>
+      <p class="lede">{{count}} young people, interviewed by Bella, on school, their minds, and what they want changed. Every profile is anonymous: a pseudonym or no name at all, an age band, a UN sub-region, a schooling status, and a drawing that is not a likeness.</p>
     </div>
   </section>
 
@@ -47,7 +47,7 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
 {{#profiles}}        <li class="row roll" id="voice-{{id}}" data-rv>
           <span class="idx"><span class="vh">Row </span>{{id}}</span>
           <img class="avatar" src="{{avatar_src}}" alt="{{avatar_alt}}" width="96" height="96">
-          <div class="who"><h3><a href="{{href}}">{{display_name}}</a></h3></div>
+          <div class="who"><h3><a href="{{href}}">{{display_name}}{{#withheld}}<span class="vh">, row {{id}}</span>{{/withheld}}</a></h3></div>
           <p class="meta">{{age_band}} · {{region}}{{#show_country}} · {{country}}{{/show_country}} · {{schooling_status}}</p>
           <span class="here">Here.</span>
           <div class="voice-body"><p>{{lead}}</p></div>

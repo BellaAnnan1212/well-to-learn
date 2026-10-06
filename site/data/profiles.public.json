@@ -1,0 +1,182 @@
+[
+  {
+    "id": "p01",
+    "slug": "p01-maya",
+    "display_name": "Maya",
+    "age_band": "15-17",
+    "region": "Eastern Africa",
+    "country": null,
+    "show_country": false,
+    "schooling_status": "interrupted",
+    "key_points": [
+      "In a normal week, works in the morning, then goes to school if there is fee money; if there is not, works more.",
+      "Says school asks for the term fee, for a uniform that fits, and to just show up as if none of that is hard; the walk to school is long too.",
+      "When her mind is somewhere else she goes quiet and stops writing; most teachers call that lazy in front of everyone.",
+      "Told the one teacher who noticed and asked; that teacher let her sit near the desk for a while, with no shouting.",
+      "Never told the school itself, because she did not think it could give her anything except a scolding; what actually helped was that teacher, and the relative she lives with, who finds fee money when the relative has it, small things like that.",
+      "Has never been told she has a right to school, to help or to be heard; she took missing school over money as her own problem to solve."
+    ],
+    "quotes": [
+      {
+        "text": "When there's no money I just don't go, and then I'm behind, and going back feels harder than not going.",
+        "paraphrased": false
+      },
+      {
+        "text": "And I want people to understand we're not lazy. We're just carrying more than they can see.",
+        "paraphrased": false
+      }
+    ],
+    "wants_changed": "A way to keep her place in class during the weeks she cannot pay, so she is not always starting over. She wants readers to understand that young people like her are not lazy; they are carrying more than people can see.",
+    "avatar": {
+      "file": "p01.svg"
+    },
+    "content_note": null,
+    "approved_by_bella": "2026-10-05",
+    "verified_identifying_details": "2026-10-05",
+    "verified_safe_messaging": "2026-10-05"
+  },
+  {
+    "id": "p02",
+    "slug": "p02-diego",
+    "display_name": "Diego",
+    "age_band": "12-14",
+    "region": "Central America",
+    "country": null,
+    "show_country": false,
+    "schooling_status": "irregular attendance",
+    "key_points": [
+      "Goes to school in the mornings when he can and works with a relative in the afternoons, because it is needed at home.",
+      "Some weeks work comes first and school does not happen at all.",
+      "When his mind drifts in class he gets told off for not paying attention, as if it were on purpose; he remembers the one teacher who asked why he looked tired.",
+      "Has not really asked for help, because he did not think there was a \"help\" to ask for; it felt like something he just had to manage himself or with family.",
+      "The relative he works with is also the person who actually helped, checking whether Diego understood the homework even while they are working.",
+      "Nobody has ever explained his rights to school, to help, or to be heard; he assumed working instead of school was a choice made at home, not something anyone owed him an answer for."
+    ],
+    "quotes": [
+      {
+        "text": "Money doesn't wait for school.",
+        "paraphrased": false
+      },
+      {
+        "text": "I didn't think there was a \"help\" to ask for. It felt like something I just had to manage myself or with family.",
+        "paraphrased": true
+      }
+    ],
+    "wants_changed": "He wants school and work to stop being a fight against each other: maybe classes at a different time, or someone checking in instead of just marking him absent. What he wants readers to understand: missing school is not the same as not caring about it.",
+    "avatar": {
+      "file": "p02.svg"
+    },
+    "content_note": null,
+    "approved_by_bella": "2026-10-05",
+    "verified_identifying_details": "2026-10-05",
+    "verified_safe_messaging": "2026-10-05"
+  },
+  {
+    "id": "p03",
+    "slug": "p03-nusrat",
+    "display_name": "Nusrat",
+    "age_band": "15-17",
+    "region": "Southern Asia",
+    "country": null,
+    "show_country": false,
+    "schooling_status": "out of school",
+    "key_points": [
+      "Nusrat was in school until recently and now spends most of her week at home, helping her family.",
+      "The journey to school came to be seen as unsafe for a girl travelling by herself, and things changed at home as well.",
+      "Before she stopped, she sat through lessons staring at the board; a teacher who repeated the question straight at her to snap her back only made it worse, more eyes on her.",
+      "She wanted to ask for help, but there was no one at school whose job that felt like, so she told a cousin instead, who just said this happens to everyone and to wait it out.",
+      "What actually helped was that cousin, someone who did not tell her to be grateful for what she had, and people from an outreach programme who talked to her family about her continuing, which opened a small door.",
+      "Nobody told her she had a right to finish school; she only heard later, from the outreach programme, that some protection is supposed to exist."
+    ],
+    "quotes": [
+      {
+        "text": "I wanted to, but who. There wasn't a person at school whose job that felt like.",
+        "paraphrased": false
+      },
+      {
+        "text": "And I want people to know girls like me aren't choosing to disappear from school. It's decided around us.",
+        "paraphrased": false
+      }
+    ],
+    "wants_changed": "She wants someone to talk to her family directly and early, before decisions get made without her in the room. What she wants readers to understand: girls like her are not choosing to disappear from school; it is decided around them.",
+    "avatar": {
+      "file": "p03.svg"
+    },
+    "content_note": null,
+    "approved_by_bella": "2026-10-05",
+    "verified_identifying_details": "2026-10-05",
+    "verified_safe_messaging": "2026-10-05"
+  },
+  {
+    "id": "p04",
+    "slug": "p04-unnamed",
+    "display_name": "Name withheld",
+    "age_band": "12-14",
+    "region": "Western Africa",
+    "country": null,
+    "show_country": false,
+    "schooling_status": "in school",
+    "key_points": [
+      "They go to school and help an older brother earn money afterwards.",
+      "They moved after trouble where they used to live; without papers from the old school this student started a grade behind where they should be, and the papers are the biggest thing in the way.",
+      "When their mind is somewhere else they get restless, fidget, and sometimes get up without asking, and some teachers send them out; asked privately by one teacher whether something had happened, they said no, because they did not want to answer where others could hear.",
+      "They never asked for help out loud, because they did not want to be the new kid with the sad story.",
+      "What helped was mostly that older brother, who tells them it is okay not to have the papers and that \"we'll sort it\", and one friend who asked no questions and simply let them sit alongside.",
+      "They say they do not know much about their rights: as far as they know, no one ever told them whether displaced children can be enrolled without all the old papers; in their words, \"We just assumed we had to fix it ourselves.\""
+    ],
+    "quotes": [
+      {
+        "text": "I didn't want to be the new kid with the sad story. I wanted to just be normal there.",
+        "paraphrased": false
+      },
+      {
+        "text": "I'd want schools to let you in first and sort the papers after.",
+        "paraphrased": false
+      }
+    ],
+    "wants_changed": "Schools should let a student in first and sort the papers after. They want readers to understand that it is not that young people in their position do not want to explain what happened; it is that they want one place that is not about that.",
+    "avatar": {
+      "file": "p04.svg"
+    },
+    "content_note": null,
+    "approved_by_bella": "2026-10-05",
+    "verified_identifying_details": "2026-10-05",
+    "verified_safe_messaging": "2026-10-05"
+  },
+  {
+    "id": "p05",
+    "slug": "p05-unnamed",
+    "display_name": "Name withheld",
+    "age_band": "15-17",
+    "region": "Western Asia",
+    "country": null,
+    "show_country": false,
+    "schooling_status": "irregular",
+    "key_points": [
+      "They came to where they live now a few years ago; a normal week is school on some days and home a lot, because their language classes clash with their regular ones and they get confused about where to be.",
+      "School expects them to already know the language, even in lessons that are not language lessons.",
+      "Some classmates make it clear this student is not from there, so on some days this student just does not want to go.",
+      "When their mind is elsewhere they go very still and stop answering, even when they know the answer.",
+      "They told a counsellor at school, in private, that dark thoughts had come up during a hard stretch, and the counsellor checked on this student for a few weeks afterwards, which helped, even if it was small.",
+      "A classmate started walking with them between classes without being asked; the only rights conversation they remember is the counsellor saying this student could always come back."
+    ],
+    "quotes": [
+      {
+        "text": "It asks me to already know the language, basically, even in classes that aren't language class.",
+        "paraphrased": false
+      },
+      {
+        "text": "And I want people to know that being quiet in class doesn't mean nothing's happening, it usually means the opposite.",
+        "paraphrased": false
+      }
+    ],
+    "wants_changed": "They want their school to plan for students like them from the start, instead of scrambling each time one arrives. What they want readers to understand: being quiet in class does not mean nothing is happening; it usually means the opposite.",
+    "avatar": {
+      "file": "p05.svg"
+    },
+    "content_note": "This profile mentions that dark thoughts came up during a hard stretch; help lines are at the bottom of the page.",
+    "approved_by_bella": "2026-10-05",
+    "verified_identifying_details": "2026-10-05",
+    "verified_safe_messaging": "2026-10-05"
+  }
+]

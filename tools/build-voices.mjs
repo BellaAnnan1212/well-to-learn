@@ -176,8 +176,20 @@ export function publicView(p) {
   };
 }
 
+const isWithheld = (p) => WITHHELD_NAMES.has(String(p.display_name).trim());
+
 function avatarAlt(p) {
-  return `Drawn avatar for ${p.display_name}, generated from a seed, not a likeness`;
+  // "Drawn avatar for Name withheld" reads as if that were a name.
+  return isWithheld(p)
+    ? 'Drawn avatar, generated from a seed, not a likeness'
+    : `Drawn avatar for ${p.display_name}, generated from a seed, not a likeness`;
+}
+
+// Several profiles print the same withheld-name string. A page title and a link name still have
+// to tell them apart, for a browser tab and for a screen reader's list of links, so the row
+// number (the profile's permanent key) is added where a name would otherwise be the only label.
+function titleName(p) {
+  return isWithheld(p) ? `${p.display_name}, row ${p.id}` : p.display_name;
 }
 
 export function main(argv = process.argv.slice(2)) {
@@ -219,6 +231,8 @@ export function main(argv = process.argv.slice(2)) {
       root: '../../',
       avatar_src: `../../assets/avatars/${p.id}.svg`,
       avatar_alt: avatarAlt(p),
+      title_name: titleName(p),
+      withheld: isWithheld(p),
     };
     const { html, missing } = stampHtml(render(profileTpl, view), { config, partials, relPath, version });
     if (missing.length) {
@@ -240,6 +254,7 @@ export function main(argv = process.argv.slice(2)) {
       href: `${p.slug}/`,
       avatar_src: `../assets/avatars/${p.id}.svg`,
       avatar_alt: avatarAlt(p),
+      withheld: isWithheld(p),
       lead: p.key_points[0],
     })),
   };

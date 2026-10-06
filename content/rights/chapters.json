@@ -1,11 +1,11 @@
 [
   { "n": 1, "slug": "right-to-learn", "title": "You have a right to learn", "state": "checked and approved" },
-  { "n": 2, "slug": "mind-is-health", "title": "Your mind is part of your health", "state": "checked twice; every row closed on 1 October 2026; waiting for Bella's approval" },
-  { "n": 3, "slug": "disability-and-school", "title": "Disability and mental health at school", "state": "checked twice; every row closed on 1 October 2026; waiting for Bella's approval" },
-  { "n": 4, "slug": "your-voice-counts", "title": "Your voice counts", "state": "checked; every row closed; waiting for Bella's approval" },
-  { "n": 5, "slug": "schools-without-fear", "title": "Schools without fear", "state": "checked twice; every row closed on 1 October 2026; waiting for Bella's approval" },
-  { "n": 6, "slug": "what-your-country-promised", "title": "What your country promised", "state": "checked; the worst rows closed; waiting for Bella's approval" },
-  { "n": 7, "slug": "what-you-can-do", "title": "What you can do", "state": "checked twice; every row closed on 1 October 2026 except the chapter's length, which is Bella's call" },
-  { "n": 8, "slug": "united-states", "title": "If you are in the United States", "state": "checked against the statutes; every row closed; waiting for Bella's approval" },
-  { "n": 9, "slug": "help-lines-everywhere", "title": "Help lines everywhere", "state": "checked; every help line opened in a browser on 19 September 2026 and again on 1 October 2026; waiting for Bella's approval" }
+  { "n": 2, "slug": "mind-is-health", "title": "Your mind is part of your health", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 8 rows open, so it is not published until they close" },
+  { "n": 3, "slug": "disability-and-school", "title": "Disability and mental health at school", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 6 rows open, so it is not published until they close" },
+  { "n": 4, "slug": "your-voice-counts", "title": "Your voice counts", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 8 rows open, so it is not published until they close" },
+  { "n": 5, "slug": "schools-without-fear", "title": "Schools without fear", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 11 rows open, so it is not published until they close" },
+  { "n": 6, "slug": "what-your-country-promised", "title": "What your country promised", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 18 rows open, so it is not published until they close" },
+  { "n": 7, "slug": "what-you-can-do", "title": "What you can do", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 9 rows open, so it is not published until they close" },
+  { "n": 8, "slug": "united-states", "title": "If you are in the United States", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 16 rows open, so it is not published until they close" },
+  { "n": 9, "slug": "help-lines-everywhere", "title": "Help lines everywhere", "state": "approved by Bella on 5 October 2026; a fresh check the same day left 7 rows open, so it is not published until they close" }
 ]

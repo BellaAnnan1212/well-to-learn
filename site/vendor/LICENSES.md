@@ -137,3 +137,22 @@ node -e 'const a=require("./iso-codes.json");console.log(a.length, ["404","076",
 ```
 
 Expected: the four sha256 values in the table above; `177 [ 'N. Cyprus', 'Somaliland', 'Kosovo' ]`; `249 [ 'KEN', 'BRA', 'TUR', 'HTI', 'PHL' ]`.
+
+## Avatars in `site/assets/avatars/` (not in this folder, recorded here)
+
+Recorded 2026-10-05 (system clock). The drawings on the Voices pages are generated, not downloaded as files: `tools/draw-avatars.mjs` draws one SVG per profile from the profile's slug.
+
+- Artwork: **Open Peeps** by Pablo Stanley, https://www.openpeeps.com/ , licence **CC0 1.0** (https://creativecommons.org/publicdomain/zero/1.0/). Each SVG carries this in its own `<metadata>` block. The files here are a remix: one fill colour for every face, on one disc.
+- Generator: `@dicebear/core` **9.4.3** and `@dicebear/open-peeps` **9.4.2** (npm), code licence **MIT**, as declared in each package's `package.json` and in the `LICENSE` file of `@dicebear/open-peeps`, read from the installed packages on 2026-10-05. The generator is not vendored and not served; only its output is.
+- No avatar loads anything from outside its own file (checked: the only `url()` is an internal `#viewboxMask`, and there is no script and no link).
+- The rule set is the same for every profile and is written at the top of `tools/draw-avatars.mjs`. No drawing is chosen to resemble anyone.
+
+| File | sha256 |
+|---|---|
+| `../assets/avatars/p01.svg` | `1d10baa42e82a06f04dd7c91f86e63b493ae6480c2d106e24a2f53eb27c6994a` |
+| `../assets/avatars/p02.svg` | `ec7637004e6805c9dfc23c42a48339cd5923f1d3e2ed4aed8ee6126ce8d40b37` |
+| `../assets/avatars/p03.svg` | `37f8f1ea0dc0052eca02da7ab7787f3b5f3ba97a12a59b9b7f7c8b69249c286f` |
+| `../assets/avatars/p04.svg` | `81d7eca839e12da735a99ec87cb537fa614b9da0847ff9b23b9da8bf3ebb632c` |
+| `../assets/avatars/p05.svg` | `30083f996493bd1dfc54b44f559284d61b17d64b70b3c2003122ddec2b7321ee` |
+
+Re-verify: `shasum -a 256 site/assets/avatars/*.svg`, or redraw with the versions above and confirm no file changes.

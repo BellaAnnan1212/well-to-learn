@@ -17,12 +17,12 @@
 if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefers-reduced-motion: reduce)").matches){d.className+=" js";}
 })(document.documentElement);
 </script>
-<link rel="stylesheet" href="../assets/tokens.css?v=20261001">
-<link rel="stylesheet" href="../assets/site.css?v=20261001">
+<link rel="stylesheet" href="../assets/tokens.css?v=20261005">
+<link rel="stylesheet" href="../assets/site.css?v=20261005">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<script defer src="../assets/site.js?v=20261001"></script>
+<script defer src="../assets/site.js?v=20261005"></script>
 </head>
 <body>
 <!-- nav:start -->
@@ -240,7 +240,7 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
         <p>Of the 9 chapters, one is published so far. The others are drafted and checked, and stay unlinked until Bella has approved each one: <a href="../rights/">Your rights</a>.</p>
         <h3>Voices</h3>
         <p>A profile is built only when four dates exist: the month consent was given, the day it was checked line by line for any detail that could identify the person, the day it was checked against safe-messaging rules, and the day Bella approved it. Any one missing and the builder refuses the whole run. A quotation must be the person's own words or be labelled as a paraphrase, runs to 40 words at most, and may not contain a year.</p>
-        <p>No profile is published yet. The fifteen drafts stay private until each has all four dates.</p>
+        <p>5 profiles are published so far: <a href="../voices/">Voices</a>.</p>
 
         <h2>Where AI helped</h2>
         <p>Bella used an AI assistant (Claude) as a tool throughout. It wrote the code that fetches the data and builds these pages, drafted explanatory text including this page, and ran the checking passes described above. It did not conduct the interviews, and it did not decide what this site says. The fuller statement is on <a href="../about/">About</a>.</p>
@@ -263,11 +263,13 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
            two United States lines really are 24/7 and say so on their own pages, but this block
            also points at a directory of more than 1,700 services whose hours vary, so a blanket
            "someone is there now" was a promise this site cannot keep for every line it offers.
-           Each line now carries only what its own publisher states. -->
+           Each line now carries only what its own publisher states.
+           2026-10-05: the two United States lines are links (tel: and sms:), so a phone can dial
+           or open a text with one tap. Bella approved the markup; no word of the block changed. -->
       <p class="crisis-lede">You do not need a reason, and you do not have to be sure. These lines are free and confidential.</p>
       <ul class="lines crisis-lines">
-        <li><span class="how">988 call or text (US)</span><span>988 Suicide and Crisis Lifeline: call, text or chat, any hour</span></li>
-        <li><span class="how">Crisis Text Line (text HOME to 741741, US)</span><span>free, confidential, any hour</span></li>
+        <li><span class="how"><a href="tel:988">988 call or text (US)</a></span><span>988 Suicide and Crisis Lifeline: call, text or chat, any hour</span></li>
+        <li><span class="how"><a href="sms:741741?&amp;body=HOME">Crisis Text Line (text HOME to 741741, US)</a></span><span>free, confidential, any hour</span></li>
         <li><span class="how"><a href="https://findahelpline.com/" rel="noopener">findahelpline.com (international)</a></span><span>help lines by country; hours vary by service</span></li>
       </ul>
       <p class="crisis-danger">if you are in danger now call local emergency services</p>
@@ -298,7 +300,7 @@ if(!/[?&]static\b/.test(location.search)&&window.matchMedia&&!matchMedia("(prefe
       Interview profiles: all rights reserved
     </p>
     <p class="legal">Information, not medical or legal advice · this site is not a crisis service · help lines are on every page</p>
-    <p class="legal">Well to Learn · version 20261001 · no cookies, no analytics, no third-party requests</p>
+    <p class="legal">Well to Learn · version 20261005 · no cookies, no analytics, no third-party requests</p>
   </div>
 </footer>
 <!-- footer:end -->

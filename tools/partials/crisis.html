@@ -6,11 +6,13 @@
            two United States lines really are 24/7 and say so on their own pages, but this block
            also points at a directory of more than 1,700 services whose hours vary, so a blanket
            "someone is there now" was a promise this site cannot keep for every line it offers.
-           Each line now carries only what its own publisher states. -->
+           Each line now carries only what its own publisher states.
+           2026-10-05: the two United States lines are links (tel: and sms:), so a phone can dial
+           or open a text with one tap. Bella approved the markup; no word of the block changed. -->
       <p class="crisis-lede">You do not need a reason, and you do not have to be sure. These lines are free and confidential.</p>
       <ul class="lines crisis-lines">
-        <li><span class="how">{{site.crisis.us_988}}</span><span>988 Suicide and Crisis Lifeline: call, text or chat, any hour</span></li>
-        <li><span class="how">{{site.crisis.us_text_line}}</span><span>free, confidential, any hour</span></li>
+        <li><span class="how"><a href="tel:988">{{site.crisis.us_988}}</a></span><span>988 Suicide and Crisis Lifeline: call, text or chat, any hour</span></li>
+        <li><span class="how"><a href="sms:741741?&amp;body=HOME">{{site.crisis.us_text_line}}</a></span><span>free, confidential, any hour</span></li>
         <li><span class="how"><a href="{{site.crisis.international_url}}" rel="noopener">{{site.crisis.international}}</a></span><span>help lines by country; hours vary by service</span></li>
       </ul>
       <p class="crisis-danger">{{site.crisis.danger}}</p>

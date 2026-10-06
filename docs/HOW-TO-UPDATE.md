@@ -2,7 +2,7 @@
 
 Four runbooks. The first needs only a browser. The others need the repository on a computer with Node 24 and git.
 
-Runbooks 1 to 3 last checked: 2026-09-04. Runbook 4 written and run: 2026-10-01.
+Runbooks 1 and 3 last checked: 2026-09-04. Runbook 2 rewritten: 2026-10-05. Runbook 4 written and run: 2026-10-01.
 
 ## 1. Fix a word (browser only, about a minute)
 
@@ -22,26 +22,31 @@ Things to know:
 
 ## 2. Add or withdraw a profile (needs the repository on a computer)
 
+Three things never enter this repository, because it is public: the raw interview notes, the approved profile files (markdown), and `profiles.json`, the data file built from them. All three carry how consent was given, and a field that no page prints is still a published field once it is committed. What the repository gets is the finished pages, the drawn avatars and `site/data/profiles.public.json`, which holds only what the pages print.
+
 Adding a profile:
 
-1. Keep the raw interview notes OUTSIDE the repository. They are never committed anywhere.
-2. Open `site/data/profiles.json` and add one entry with every field, copying the shape from `tools/fixtures/profiles.sample.json`: `id` (p01 to p15), `slug`, `pseudonym`, `display_name`, `age_band` (12-14, 15-17 or 18-19), `region` (a UN sub-region), `country` (null unless the person agreed to it) with `show_country`, `schooling_status`, `key_points` (three to six), `quotes` (one or two, each with `text` and a `paraphrased` flag, under 40 words, no years), `wants_changed`, `avatar` (style, seed, file), `content_note` (null or one sentence), `consent` (how, date), then three more dates: `approved_by_bella`, `verified_identifying_details` and `verified_safe_messaging`. Every date is YYYY-MM-DD, except the consent date, which is YYYY-MM: month only, because this repository is public and the exact interview day stays in the private intake notes. The tool refuses a consent date that names a day.
-3. Run `node tools/build-voices.mjs`. If any of the four dates is missing, a quote runs over 40 words or contains a year, or the text uses one of the banned phrases (epidemic, crisis, diagnosed, skyrocketing, committed suicide), the tool refuses the whole build, writes nothing, and names the profile and the field. That is on purpose: no profile goes live without consent, approval, a check that nothing in it identifies the person, and a safe-messaging check. The tool also rebuilds the Voices roll (`site/voices/index.html`) and `site/data/profiles.public.json`.
-4. Run `node tools/stamp.mjs` so the new page gets its nav, crisis block, footer and cache-buster.
-5. Add the new page to `site/sitemap.xml`: copy one `<url>` line, change the path to `voices/<slug>/`, set `lastmod` to today's date.
-6. Run `node tools/check.mjs`. It must finish with no errors.
-7. Stage by name, never with a blanket add:
-   `git add site/data/profiles.json site/data/profiles.public.json site/voices/<slug>/index.html site/voices/index.html site/sitemap.xml`
-   (add the avatar file under `site/assets/avatars/` if it is new), then commit and push.
-8. Watch the Actions tab go green, then open the live profile and read it once more as a stranger would.
+1. The profile file (`pNN-<slug>.md`, outside the repository) has Bella's approval of the exact text and a PASS from both checks on that same text: `approved_by_bella`, `verified_identifying_details` and `verified_safe_messaging` each carry a date (YYYY-MM-DD). The consent date is YYYY-MM, month only. If a word changes after a check, the check is run again.
+2. Build the data file, OUTSIDE the repository:
+   `node tools/import-profiles.mjs --from <folder of profile files> --out <a path outside the repo>/profiles.json`
+   It reads every `pNN-*.md` (or only some, with `--only p01,p02`). It refuses the whole run, and writes nothing, if a section is missing or renamed, a quote line is not `> "..." (verbatim)` or `> "..." (paraphrased)`, the heading disagrees with the header fields, a date is missing, or the output path is inside this repository.
+3. Draw the avatars: `node tools/draw-avatars.mjs --profiles <that profiles.json> --modules <folder where the drawing library is installed>`. The library is not part of this repository; the header of the tool says how to install it. Every avatar is drawn from the profile's slug with one rule set for everyone.
+4. Build the pages: `node tools/build-voices.mjs --profiles <that profiles.json>`. If any date is missing, a quote runs over 40 words or contains a year, or the text uses a banned phrase (epidemic, crisis, diagnosed, skyrocketing, committed suicide), it refuses the whole build and names the profile and the field. It also rebuilds the Voices roll (`site/voices/index.html`) and `site/data/profiles.public.json`.
+5. Run `node tools/build-methodology.mjs` (it counts published profiles) and `node tools/stamp.mjs`.
+6. Add each new page to `site/sitemap.xml`: copy one `<url>` line, change the path to `voices/<slug>/`, set `lastmod` to today's date.
+7. Run `node tools/check.mjs` and `node tools/test.mjs`. Both must finish clean.
+8. Stage by name, never with a blanket add:
+   `git add site/data/profiles.public.json site/voices/<slug>/index.html site/voices/index.html site/assets/avatars/pNN.svg site/methodology/index.html site/sitemap.xml`
+   then commit and push. Before committing, run `git status` and confirm no `profiles.json` and no `.md` profile is listed.
+9. Watch the Actions tab go green, then open the live profile and read it once more as a stranger would.
 
 Withdrawing a profile (a person may withdraw at any time before the content freeze, and their request is honoured after it too):
 
-1. Remove the entry from `site/data/profiles.json`.
-2. Delete the folder `site/voices/<slug>/`.
+1. Move the profile file out of the folder the import reads, and run step 2 again.
+2. Delete the folder `site/voices/<slug>/` and the avatar `site/assets/avatars/pNN.svg`.
 3. Remove its line from `site/sitemap.xml`.
-4. Run `node tools/build-voices.mjs` (it rebuilds the roll without the withdrawn profile), then `node tools/stamp.mjs`, then `node tools/check.mjs`.
-5. Stage the changed paths by name (`profiles.json`, `profiles.public.json`, the deleted folder, `site/voices/index.html`, the sitemap), commit, push, and confirm the live URL now shows the 404 page.
+4. Run steps 4, 5 and 7 (the roll and `profiles.public.json` are rebuilt without the withdrawn profile).
+5. Stage the changed paths by name (`profiles.public.json`, the deleted folder and avatar, `site/voices/index.html`, `site/methodology/index.html`, the sitemap), commit, push, and confirm the live URL now shows the 404 page.
 
 ## 3. Update a number
 
